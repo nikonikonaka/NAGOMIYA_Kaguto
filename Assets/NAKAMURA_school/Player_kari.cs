@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player_con1 : MonoBehaviour
+public class Player_conkari : MonoBehaviour
 {
     public string horizontalAxis = "Horizontal";
     public string verticalAxis = "Vertical";
