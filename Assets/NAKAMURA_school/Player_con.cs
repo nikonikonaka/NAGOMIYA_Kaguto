@@ -1,9 +1,8 @@
 using UnityEngine;
 
-public class Player_con1 : MonoBehaviour
+public class Player_con : MonoBehaviour
 {
-    public string horizontalAxis = "Horizontal";
-    public string verticalAxis = "Vertical";
+    public int joystickNumber = 1;
 
     public float moveSpeed = 5f;
     public float jumpPower = 7f;
@@ -20,14 +19,19 @@ public class Player_con1 : MonoBehaviour
 
     void Update()
     {
-        float move = Input.GetAxisRaw(horizontalAxis);
+        float move = Input.GetAxisRaw("J" + joystickNumber + "_Horizontal");
+
+        if (Mathf.Abs(move) < 0.3f)
+            move = 0;
 
         rb.linearVelocity = new Vector2(
             move * moveSpeed,
             rb.linearVelocity.y
         );
 
-        if (Input.GetAxisRaw(verticalAxis) > 0.5f && isGrounded)
+        // Aボタンでジャンプ
+        if (Input.GetKeyDown("joystick " + joystickNumber + " button 0")
+            && isGrounded)
         {
             rb.linearVelocity = new Vector2(
                 rb.linearVelocity.x,
@@ -45,6 +49,9 @@ public class Player_con1 : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        isGrounded = true;
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
     }
 }
