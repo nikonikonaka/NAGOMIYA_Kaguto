@@ -181,6 +181,7 @@ MonoBehaviour:
   player1Manager: {fileID: 342742477}
   player2: {fileID: 826833850}
   player2Control: {fileID: 1815395153}
+  player2Joined: 0
 --- !u!1001 &632689224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -568,6 +569,10 @@ PrefabInstance:
     - target: {fileID: 3034428086170811646, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247948235337681653, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7526649784755443958, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: m_LocalPosition.x

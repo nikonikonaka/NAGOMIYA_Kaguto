@@ -13,41 +13,56 @@ public class Player_con : MonoBehaviour
 
     private float moveInput;
     private bool isGrounded;
+    private bool joined = false;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+
+        // コントローラーを受け取るまでは操作禁止
+        joined = false;
+        myPad = null;
+        moveInput = 0f;
+
+        // 横移動を停止
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
     }
 
-    // Joyconから1P専用コントローラーを受け取る
+    // Joycon.cs から1P用コントローラーを受け取る
     public void SetPad(Gamepad pad)
     {
-        myPad = pad;
+        if (pad == null)
+            return;
 
-        if (myPad != null)
-        {
-            Debug.Log("1P専用コントローラー: "
-                + myPad.displayName
-                + " / ID=" + myPad.deviceId);
-        }
+        // すでに登録済みなら、別のコントローラーに変更させない
+        if (joined)
+            return;
+
+        myPad = pad;
+        joined = true;
+        moveInput = 0f;
+
+        Debug.Log(
+            "[1P] コントローラー登録: " +
+            myPad.displayName +
+            " / ID=" + myPad.deviceId
+        );
     }
 
     void Update()
     {
-        if (myPad == null)
+        // 1P用コントローラー登録前は操作禁止
+        if (!joined || myPad == null)
             return;
 
+        // 登録された1P用コントローラーだけを読む
         moveInput = myPad.leftStick.x.ReadValue();
 
-        if (Mathf.Abs(moveInput) > 0.1f)
-        {
-            Debug.Log(
-                "[1P] ID=" + myPad.deviceId
-                + " / 入力=" + moveInput
-            );
-        }
-
+        // ジャンプ
         if (myPad.buttonSouth.wasPressedThisFrame && isGrounded)
         {
             rb.linearVelocity = new Vector2(
@@ -58,17 +73,32 @@ public class Player_con : MonoBehaviour
             isGrounded = false;
         }
 
-        if (moveInput > 0)
+        // 左右の向き
+        if (moveInput > 0.1f)
             sr.flipX = false;
-        else if (moveInput < 0)
+        else if (moveInput < -0.1f)
             sr.flipX = true;
     }
 
     void FixedUpdate()
     {
-        if (myPad == null)
-            return;
+        // 登録前、またはコントローラーがない場合は横移動禁止
+        if (!joined || myPad == null)
+        {
+            moveInput = 0f;
 
+            if (rb != null)
+            {
+                rb.linearVelocity = new Vector2(
+                    0f,
+                    rb.linearVelocity.y
+                );
+            }
+
+            return;
+        }
+
+        // 登録した1P用コントローラーの入力だけで移動
         rb.linearVelocity = new Vector2(
             moveInput * moveSpeed,
             rb.linearVelocity.y
