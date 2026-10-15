@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +5,14 @@ public class Player1_con : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpPower = 7f;
+
+    [Header("攻撃")]
+    public float dashSpeed = 12f;
+    public float dashTime = 1.0f; // 1秒突進
+    public int attackDamage = 10;
+
+    private bool isAttacking = false;
+    private float attackTimer = 0f;
 
     private Gamepad myPad;
     private Rigidbody2D rb;
@@ -20,12 +27,10 @@ public class Player1_con : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
 
-        // コントローラーを受け取るまでは操作禁止
         joined = false;
         myPad = null;
         moveInput = 0f;
 
-        // 横移動を停止
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
@@ -35,16 +40,11 @@ public class Player1_con : MonoBehaviour
     // Joycon.cs から1P用コントローラーを受け取る
     public void SetPad(Gamepad pad)
     {
-        if (pad == null)
-            return;
-
-        // すでに登録済みなら、別のコントローラーに変更させない
-        if (joined)
-            return;
+        if (pad == null) return;
+        if (joined) return;
 
         myPad = pad;
         joined = true;
-        moveInput = 0f;
 
         Debug.Log(
             "[1P] コントローラー登録: " +
@@ -55,14 +55,13 @@ public class Player1_con : MonoBehaviour
 
     void Update()
     {
-        // 1P用コントローラー登録前は操作禁止
         if (!joined || myPad == null)
             return;
 
-        // 登録された1P用コントローラーだけを読む
+        // 左スティック
         moveInput = myPad.leftStick.x.ReadValue();
 
-        // ジャンプ
+        // ジャンプ(A)
         if (myPad.buttonSouth.wasPressedThisFrame && isGrounded)
         {
             rb.linearVelocity = new Vector2(
@@ -73,32 +72,52 @@ public class Player1_con : MonoBehaviour
             isGrounded = false;
         }
 
-        // 左右の向き
+        // Bボタンで突進
+        if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
+        {
+            isAttacking = true;
+            attackTimer = dashTime;
+        }
+
+        // 向き
         if (moveInput > 0.1f)
+        {
             sr.flipX = false;
+        }
         else if (moveInput < -0.1f)
+        {
             sr.flipX = true;
+        }
     }
 
     void FixedUpdate()
     {
-        // 登録前、またはコントローラーがない場合は横移動禁止
         if (!joined || myPad == null)
         {
-            moveInput = 0f;
+            return;
+        }
 
-            if (rb != null)
+        // 突進中
+        if (isAttacking)
+        {
+            attackTimer -= Time.fixedDeltaTime;
+
+            float dir = sr.flipX ? -1f : 1f;
+
+            rb.linearVelocity = new Vector2(
+                dir * dashSpeed,
+                rb.linearVelocity.y
+            );
+
+            if (attackTimer <= 0f)
             {
-                rb.linearVelocity = new Vector2(
-                    0f,
-                    rb.linearVelocity.y
-                );
+                isAttacking = false;
             }
 
             return;
         }
 
-        // 登録した1P用コントローラーの入力だけで移動
+        // 通常移動 1pコントローラー専用
         rb.linearVelocity = new Vector2(
             moveInput * moveSpeed,
             rb.linearVelocity.y
@@ -110,6 +129,21 @@ public class Player1_con : MonoBehaviour
         if (col.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+        }
+
+        // 攻撃中に相手へ当たったらダメージ
+        if (isAttacking && col.gameObject.CompareTag("Player"))
+        {
+            Player_Health hp =
+                col.gameObject.GetComponent<Player_Health>();
+
+            if (hp != null)
+            {
+                hp.TakeDamage(attackDamage);
+
+                // 当たったら攻撃終了
+                isAttacking = false;
+            }
         }
     }
 }
