@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player_con : MonoBehaviour
+public class Player1_con : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpPower = 7f;

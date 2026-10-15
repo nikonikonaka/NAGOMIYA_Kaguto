@@ -7,7 +7,7 @@ public class Stand : MonoBehaviour
     public float downDelay = 0.7f;     // Q‚Ä‚¢‚éŠÔ
 
     private Rigidbody2D rb;
-    private Player_con playerCon;
+    private Player1_con playerCon;
 
     private bool isDown;
     private float timer;
@@ -15,7 +15,7 @@ public class Stand : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerCon = GetComponent<Player_con>();
+        playerCon = GetComponent<Player1_con>();
     }
 
     void Update()
