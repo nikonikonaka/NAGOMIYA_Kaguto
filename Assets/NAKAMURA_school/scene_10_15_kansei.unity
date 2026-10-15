@@ -1359,6 +1359,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpPower: 7
+  dashSpeed: 12
+  dashTime: 1
+  attackDamage: 10
   joined: 0
 --- !u!114 &1815395154
 MonoBehaviour:
