@@ -13,6 +13,7 @@ public class Player1_con : MonoBehaviour
 
     private bool isAttacking = false;
     private float attackTimer = 0f;
+    private bool airDashUsed = false;
 
     private Gamepad myPad;
     private Rigidbody2D rb;
@@ -61,7 +62,6 @@ public class Player1_con : MonoBehaviour
         // 左スティック
         moveInput = myPad.leftStick.x.ReadValue();
 
-        // ジャンプ(A)
         if (myPad.buttonSouth.wasPressedThisFrame && isGrounded)
         {
             rb.linearVelocity = new Vector2(
@@ -70,13 +70,26 @@ public class Player1_con : MonoBehaviour
             );
 
             isGrounded = false;
+
+            // 空中突進回数リセット
+            airDashUsed = false;
         }
 
-        // Bボタンで突進
         if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
         {
-            isAttacking = true;
-            attackTimer = dashTime;
+            // 地上なら何回でも
+            if (isGrounded)
+            {
+                isAttacking = true;
+                attackTimer = dashTime;
+            }
+            // 空中なら1回だけ
+            else if (!airDashUsed)
+            {
+                isAttacking = true;
+                attackTimer = dashTime;
+                airDashUsed = true;
+            }
         }
 
         // 向き
@@ -129,9 +142,9 @@ public class Player1_con : MonoBehaviour
         if (col.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            airDashUsed = false;
         }
 
-        // 攻撃中に相手へ当たったらダメージ
         if (isAttacking && col.gameObject.CompareTag("Player"))
         {
             Player_Health hp =
@@ -140,8 +153,6 @@ public class Player1_con : MonoBehaviour
             if (hp != null)
             {
                 hp.TakeDamage(attackDamage);
-
-                // 当たったら攻撃終了
                 isAttacking = false;
             }
         }

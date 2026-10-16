@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player_Health : MonoBehaviour
@@ -52,6 +53,9 @@ public class Player_Health : MonoBehaviour
         {
             movement.enabled = false;
         }
+
+        // ResultƒV[ƒ“‚ÖˆÚ“®
+        SceneManager.LoadScene("Result");
     }
 
     public void Heal(int amount)

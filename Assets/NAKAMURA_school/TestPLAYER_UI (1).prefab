@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 1749887882178338080}
   - component: {fileID: 7247948235337681653}
   - component: {fileID: 1432290173485806099}
-  - component: {fileID: 3903828033446458811}
   - component: {fileID: 3034428086170811646}
   m_Layer: 0
   m_Name: TestPLAYER_UI (1)
@@ -181,6 +180,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpPower: 7
+  dashSpeed: 12
+  dashTime: 1
+  attackDamage: 10
 --- !u!114 &7247948235337681653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,28 +213,6 @@ MonoBehaviour:
   downAngle: 60
   standForce: 200
   downDelay: 0.7
---- !u!95 &3903828033446458811
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8003463387337817301}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &3034428086170811646
 MonoBehaviour:
   m_ObjectHideFlags: 0
