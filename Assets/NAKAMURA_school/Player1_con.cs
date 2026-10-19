@@ -8,8 +8,11 @@ public class Player1_con : MonoBehaviour
 
     [Header("攻撃")]
     public float dashSpeed = 12f;
-    public float dashTime = 1.0f; // 1秒突進
+    public float dashTime = 1.0f;
     public int attackDamage = 10;
+
+    [Header("SE")]
+    public AudioClip dashSE;
 
     private bool isAttacking = false;
     private float attackTimer = 0f;
@@ -18,6 +21,7 @@ public class Player1_con : MonoBehaviour
     private Gamepad myPad;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
+    private AudioSource audioSource;
 
     private float moveInput;
     private bool isGrounded;
@@ -27,6 +31,7 @@ public class Player1_con : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
 
         joined = false;
         myPad = null;
@@ -62,6 +67,7 @@ public class Player1_con : MonoBehaviour
         // 左スティック
         moveInput = myPad.leftStick.x.ReadValue();
 
+        // ジャンプ
         if (myPad.buttonSouth.wasPressedThisFrame && isGrounded)
         {
             rb.linearVelocity = new Vector2(
@@ -70,25 +76,34 @@ public class Player1_con : MonoBehaviour
             );
 
             isGrounded = false;
-
-            // 空中突進回数リセット
             airDashUsed = false;
         }
 
+        // Bボタンで突進
         if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
         {
-            // 地上なら何回でも
+            // 地上
             if (isGrounded)
             {
                 isAttacking = true;
                 attackTimer = dashTime;
+
+                if (dashSE != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(dashSE);
+                }
             }
-            // 空中なら1回だけ
+            // 空中は1回だけ
             else if (!airDashUsed)
             {
                 isAttacking = true;
                 attackTimer = dashTime;
                 airDashUsed = true;
+
+                if (dashSE != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(dashSE);
+                }
             }
         }
 
@@ -130,7 +145,7 @@ public class Player1_con : MonoBehaviour
             return;
         }
 
-        // 通常移動 1pコントローラー専用
+        // 通常移動
         rb.linearVelocity = new Vector2(
             moveInput * moveSpeed,
             rb.linearVelocity.y
@@ -139,14 +154,11 @@ public class Player1_con : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Ground") ||
+            col.gameObject.CompareTag("Player"))
         {
             isGrounded = true;
             airDashUsed = false;
-        }
-        else
-        {
-          isGrounded = false;
         }
 
         if (isAttacking && col.gameObject.CompareTag("Player"))
