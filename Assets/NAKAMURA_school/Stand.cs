@@ -2,30 +2,41 @@ using UnityEngine;
 
 public class Stand : MonoBehaviour
 {
-    public float downAngle = 60f;      // ダウン判定角度
-    public float standForce = 50f;     // 起き上がる力
-    public float downDelay = 0.7f;     // 寝ている時間
+    public float downAngle = 60f;
+    public float downDelay = 0.7f;
+    public float standSpeed = 300f; // 起き上がり速度
 
     private Rigidbody2D rb;
     private Player1_con playerCon;
+    private Player_Health hp;
 
-    private bool isDown;
-    private float timer;
+    private bool isDown = false;
+    private float timer = 0f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerCon = GetComponent<Player1_con>();
+        hp = GetComponent<Player_Health>();
     }
 
     void Update()
     {
+        // HP0なら停止
+        if (hp != null && hp.GetCurrentHealth() <= 0)
+        {
+            if (playerCon != null)
+                playerCon.enabled = false;
+
+            return;
+        }
+
         float z = transform.eulerAngles.z;
 
         if (z > 180f)
             z -= 360f;
 
-        // ダウン
+        // ダウン判定
         if (!isDown && Mathf.Abs(z) > downAngle)
         {
             isDown = true;
@@ -33,35 +44,40 @@ public class Stand : MonoBehaviour
 
             if (playerCon != null)
                 playerCon.enabled = false;
-
-            rb.freezeRotation = false;
         }
 
-        if (isDown)
+        if (!isDown)
+            return;
+
+        // ダウン時間
+        if (timer > 0)
         {
-            // 少し寝る
-            if (timer > 0)
-            {
-                timer -= Time.deltaTime;
-                return;
-            }
+            timer -= Time.deltaTime;
+            return;
+        }
 
-            // ゆっくり起き上がる
-            rb.AddTorque(-z * standForce * Time.deltaTime);
+        // ゆっくり起き上がる
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            Quaternion.identity,
+            standSpeed * Time.deltaTime
+        );
 
-            // ほぼ立った
-            if (Mathf.Abs(z) < 5f)
-            {
-                rb.angularVelocity = 0f;
-                transform.rotation = Quaternion.identity;
+        // 起き上がり中は回転速度を弱める
+        rb.angularVelocity *= 0.9f;
 
-                rb.freezeRotation = true;
+        // 完全に起きた
+        if (Quaternion.Angle(transform.rotation, Quaternion.identity) < 3f)
+        {
+            transform.rotation = Quaternion.identity;
 
-                if (playerCon != null)
-                    playerCon.enabled = true;
+            rb.angularVelocity = 0f;
+            rb.linearVelocity *= 0.5f;
 
-                isDown = false;
-            }
+            if (playerCon != null)
+                playerCon.enabled = true;
+
+            isDown = false;
         }
     }
 }

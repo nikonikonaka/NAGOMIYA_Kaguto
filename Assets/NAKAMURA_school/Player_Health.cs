@@ -53,6 +53,11 @@ public class Player_Health : MonoBehaviour
         {
             movement.enabled = false;
         }
+        MonoBehaviour movement2 = GetComponent<Player2_con>();
+        if (movement2 != null)
+        {
+            movement2.enabled = false;
+        }
 
         // ResultƒV[ƒ“‚ÖˆÚ“®
         SceneManager.LoadScene("Result");

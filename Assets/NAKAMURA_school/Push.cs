@@ -6,10 +6,20 @@ public class Push : MonoBehaviour
 
     private Rigidbody2D rb;
 
-    void Start()
+   
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        if (rb == null)
+        {
+            Debug.LogError(
+                gameObject.name +
+                " ‚É Rigidbody2D ‚ª‚ ‚è‚Ü‚¹‚ñ"
+            );
+        }
     }
+
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -28,5 +38,9 @@ public class Push : MonoBehaviour
         rb.MovePosition(
             rb.position - dir * pushPower * Time.fixedDeltaTime
         );
+
+        // “®‚«‚ðƒŠƒZƒbƒg
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
     }
 }
