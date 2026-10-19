@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class Joycon : MonoBehaviour
 {
-    public Player_con player1;
+    public Player1_con player1;
     public Player2_con player2;
 
     private Gamepad player1Pad;

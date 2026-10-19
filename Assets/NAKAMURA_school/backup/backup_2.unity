@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 342742476}
   - component: {fileID: 342742477}
-  - component: {fileID: 342742478}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -166,22 +165,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 4798061850350874154}
   player2: {fileID: 1815395153}
---- !u!114 &342742478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 342742475}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20f728d9d6d4324dbc578883f4c02e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player1Manager: {fileID: 342742477}
-  player2: {fileID: 826833850}
-  player2Control: {fileID: 1815395153}
-  player2Joined: 0
 --- !u!1001 &632689224
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -298,17 +281,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1815395153}
   m_SourcePrefab: {fileID: 100100000, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
---- !u!114 &826833850 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3034428086170811646, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
-  m_PrefabInstance: {fileID: 632689224}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1815395146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1003744429
 GameObject:
   m_ObjectHideFlags: 0
