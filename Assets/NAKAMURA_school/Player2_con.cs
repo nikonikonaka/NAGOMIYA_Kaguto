@@ -113,9 +113,14 @@ public class Player2_con : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Ground"))
+        if (col.gameObject.CompareTag("Ground") || col.gameObject.CompareTag("Player"))
         {
             isGrounded = true;
+        
+        }
+        else
+        {
+            isGrounded = false;
         }
 
         // 突進中に相手へダメージ

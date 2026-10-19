@@ -1963,8 +1963,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1432290173485806099, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
+      propertyPath: downAngle
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432290173485806099, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
+      propertyPath: downDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432290173485806099, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1432290173485806099, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
+      propertyPath: standSpeed
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 1749887882178338080, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: attackDamage
