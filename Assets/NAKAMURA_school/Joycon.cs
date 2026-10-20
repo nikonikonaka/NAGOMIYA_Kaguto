@@ -22,6 +22,74 @@ public class Joycon : MonoBehaviour
             player2.enabled = false;
     }
 
+    void Start()
+    {
+        // AÉ{É^ÉìÇâüÇ∑ëOÇ…ÅAê⁄ë±èáÇ≈ìoò^Ç∑ÇÈ
+        AssignControllers();
+    }
+
+    void AssignControllers()
+    {
+        // ê⁄ë±Ç≥ÇÍÇƒÇ¢ÇÈÉRÉìÉgÉçÅ[ÉâÅ[ÇéÊìæ
+        var gamepads = Gamepad.all;
+
+        // 1ë‰ñ⁄Ç1PÇ…ìoò^
+        if (gamepads.Count >= 1)
+        {
+            player1Pad = gamepads[0];
+            player1Joined = true;
+
+            if (player1 != null)
+            {
+                player1.SetPad(player1Pad);
+                player1.enabled = true;
+            }
+
+            Debug.Log(
+                "[ê⁄ë±ìoò^] 1P: " +
+                player1Pad.displayName +
+                " / ID=" + player1Pad.deviceId
+            );
+        }
+
+        // 2ë‰ñ⁄Ç2PÇ…ìoò^
+        if (gamepads.Count >= 2)
+        {
+            player2Pad = gamepads[1];
+            player2Joined = true;
+
+            if (player2 != null)
+            {
+                player2.SetPad(player2Pad);
+                player2.enabled = true;
+            }
+
+            Debug.Log(
+                "[ê⁄ë±ìoò^] 2P: " +
+                player2Pad.displayName +
+                " / ID=" + player2Pad.deviceId
+            );
+        }
+    }
+}
+ /*   public Player1_con player1;
+    public Player2_con player2;
+
+    private Gamepad player1Pad;
+    private Gamepad player2Pad;
+
+    private bool player1Joined;
+    private bool player2Joined;
+
+    void Awake()
+    {
+        if (player1 != null)
+            player1.enabled = false;
+
+        if (player2 != null)
+            player2.enabled = false;
+    }
+
     void Update()
     {
         foreach (Gamepad pad in Gamepad.all)
@@ -66,3 +134,4 @@ public class Joycon : MonoBehaviour
         }
     }
 }
+ */
