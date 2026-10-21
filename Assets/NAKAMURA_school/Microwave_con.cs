@@ -76,7 +76,7 @@ public class Microwave_con : MonoBehaviour
 
         if (player != null)
         {
-            player.lockControl = true;
+          
         }
 
         // —‘“Š“ü
