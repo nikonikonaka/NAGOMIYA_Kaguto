@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,6 +23,10 @@ public class Player2_con : MonoBehaviour
 
     [HideInInspector]
     public Gamepad myPad;
+
+    // レンジ用操作ロック
+    [HideInInspector]
+    public bool lockControl = false;
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -63,6 +66,23 @@ public class Player2_con : MonoBehaviour
         if (!joined || myPad == null)
             return;
 
+        // レンジ中は操作禁止
+        if (lockControl)
+        {
+            moveInput = 0f;
+
+            if (rb != null)
+            {
+                rb.linearVelocity =
+                    new Vector2(
+                        0f,
+                        rb.linearVelocity.y
+                    );
+            }
+
+            return;
+        }
+
         moveInput = myPad.leftStick.x.ReadValue();
 
         // ジャンプ
@@ -80,7 +100,6 @@ public class Player2_con : MonoBehaviour
         // Bボタンで突進
         if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
         {
-            // 地上
             if (isGrounded)
             {
                 isAttacking = true;
@@ -91,7 +110,6 @@ public class Player2_con : MonoBehaviour
                     audioSource.PlayOneShot(dashSE);
                 }
             }
-            // 空中は1回だけ
             else if (!airDashUsed)
             {
                 isAttacking = true;
@@ -105,11 +123,15 @@ public class Player2_con : MonoBehaviour
             }
         }
 
-        // 向き
         if (moveInput > 0.1f)
             sr.flipX = false;
         else if (moveInput < -0.1f)
             sr.flipX = true;
+    }
+
+    public bool IsFacingLeft()
+    {
+        return sr != null && sr.flipX;
     }
 
     void FixedUpdate()
@@ -117,7 +139,9 @@ public class Player2_con : MonoBehaviour
         if (!joined || myPad == null)
             return;
 
-        // 突進中
+        if (lockControl)
+            return;
+
         if (isAttacking)
         {
             attackTimer -= Time.fixedDeltaTime;
@@ -137,7 +161,6 @@ public class Player2_con : MonoBehaviour
             return;
         }
 
-        // 通常移動
         rb.linearVelocity = new Vector2(
             moveInput * moveSpeed,
             rb.linearVelocity.y
@@ -153,8 +176,8 @@ public class Player2_con : MonoBehaviour
             airDashUsed = false;
         }
 
-        // 突進中に相手へダメージ
-        if (isAttacking && col.gameObject.CompareTag("Player"))
+        if (isAttacking &&
+            col.gameObject.CompareTag("Player"))
         {
             Player_Health hp =
                 col.gameObject.GetComponent<Player_Health>();
@@ -167,7 +190,6 @@ public class Player2_con : MonoBehaviour
         }
     }
 }
-
 /*using UnityEngine;  //2026 10 19  
 using UnityEngine.InputSystem;
 
