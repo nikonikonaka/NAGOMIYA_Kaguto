@@ -22,7 +22,7 @@ public class Player1_con : MonoBehaviour
     [HideInInspector]
     public bool lockControl = false;
 
-    private Gamepad myPad;
+    public Gamepad myPad;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private AudioSource audioSource;

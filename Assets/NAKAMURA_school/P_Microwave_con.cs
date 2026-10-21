@@ -31,16 +31,17 @@ public class P_Microwave_con : MonoBehaviour
     {
         UpdateDirection();
 
-        if (Gamepad.current == null)
+        if (player == null || player.myPad == null)
             return;
 
         // Yƒ{ƒ^ƒ“
-        if (Gamepad.current.buttonNorth.wasPressedThisFrame &&
+        if (player.myPad.buttonNorth.wasPressedThisFrame &&
             !heating)
         {
             StartCoroutine(HeatRoutine());
         }
     }
+
 
     void UpdateDirection()
     {

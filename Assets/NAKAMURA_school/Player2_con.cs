@@ -66,7 +66,7 @@ public class Player2_con : MonoBehaviour
         if (!joined || myPad == null)
             return;
 
-        // ƒŒƒ“ƒW’†‚Í‘€ì‹Ö~
+        //‘€ì‹Ö~
         if (lockControl)
         {
             moveInput = 0f;
