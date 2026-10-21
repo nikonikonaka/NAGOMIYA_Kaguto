@@ -147,6 +147,13 @@ public class Microwave_con : MonoBehaviour
 
         foreach (Collider2D target in targets)
         {
+            // Ž©•ª‚Í–³“G
+            if (player != null &&
+                target.gameObject == player.gameObject)
+            {
+                continue;
+            }
+
             Player_Health hp =
                 target.GetComponent<Player_Health>();
 

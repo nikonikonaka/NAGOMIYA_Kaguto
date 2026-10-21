@@ -139,13 +139,13 @@ TextureImporter:
       name: OpendRange_0
       rect:
         serializedVersion: 2
-        x: 26
+        x: 0
         y: 23
-        width: 1970
+        width: 1996
         height: 1260
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 527, y: 0, z: 0, w: 0}
+      alignment: 9
+      pivot: {x: 0.6497996, y: 0.5214286}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -421,6 +421,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: OpendRange_13
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 23
+        width: 1970
+        height: 1260
+      alignment: 9
+      pivot: {x: 0.5928934, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccc92fffbd9b36542bc9fe09b03c69e7
+      internalID: 2036346974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -440,6 +462,7 @@ TextureImporter:
       OpendRange_10: -953684386447376123
       OpendRange_11: 1281864457073496198
       OpendRange_12: 7622074024520127330
+      OpendRange_13: 2036346974
       OpendRange_2: 4822163765267515909
       OpendRange_3: -1410961750540914391
       OpendRange_4: -1479961647681165712
