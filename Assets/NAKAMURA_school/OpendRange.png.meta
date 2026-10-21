@@ -1,0 +1,478 @@
+fileFormatVersion: 2
+guid: f6420fa9c468ca1449990932619b4ac9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 814618697113000308
+    second: OpendRange_0
+  - first:
+      213: 2543552398931590516
+    second: OpendRange_1
+  - first:
+      213: 4822163765267515909
+    second: OpendRange_2
+  - first:
+      213: -1410961750540914391
+    second: OpendRange_3
+  - first:
+      213: -1479961647681165712
+    second: OpendRange_4
+  - first:
+      213: 2115020821098429049
+    second: OpendRange_5
+  - first:
+      213: -3537970461151254580
+    second: OpendRange_6
+  - first:
+      213: 4063259097028771228
+    second: OpendRange_7
+  - first:
+      213: 4682766518514827414
+    second: OpendRange_8
+  - first:
+      213: -8785746475749675068
+    second: OpendRange_9
+  - first:
+      213: -953684386447376123
+    second: OpendRange_10
+  - first:
+      213: 1281864457073496198
+    second: OpendRange_11
+  - first:
+      213: 7622074024520127330
+    second: OpendRange_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: OpendRange_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 23
+        width: 1996
+        height: 1260
+      alignment: 9
+      pivot: {x: 0.6497996, y: 0.5214286}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 479dfc4936b1e4b00800000000000000
+      internalID: 814618697113000308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_1
+      rect:
+        serializedVersion: 2
+        x: 437
+        y: 67
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47df8e53e638c4320800000000000000
+      internalID: 2543552398931590516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_2
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 88
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50ac7854564cbe240800000000000000
+      internalID: 4822163765267515909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_3
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 81
+        width: 28
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 921785373c14b6ce0800000000000000
+      internalID: -1410961750540914391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_4
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 105
+        width: 14
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07623ccf8be167be0800000000000000
+      internalID: -1479961647681165712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_5
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 109
+        width: 36
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97a702e1b301a5d10800000000000000
+      internalID: 2115020821098429049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_6
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 130
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc7214d4c9a96eec0800000000000000
+      internalID: -3537970461151254580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_7
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 136
+        width: 19
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9d36c4ee98936830800000000000000
+      internalID: 4063259097028771228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_8
+      rect:
+        serializedVersion: 2
+        x: 1097
+        y: 49
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6904b2696578cf040800000000000000
+      internalID: 4682766518514827414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_9
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 44
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cfec421122c21680800000000000000
+      internalID: -8785746475749675068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_10
+      rect:
+        serializedVersion: 2
+        x: 1110
+        y: 53
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 501c7f57a15d3c2f0800000000000000
+      internalID: -953684386447376123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_11
+      rect:
+        serializedVersion: 2
+        x: 1498
+        y: 0
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 680901e9ee81ac110800000000000000
+      internalID: 1281864457073496198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_12
+      rect:
+        serializedVersion: 2
+        x: 1509
+        y: 8
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 263114b11fb07c960800000000000000
+      internalID: 7622074024520127330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OpendRange_13
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 23
+        width: 1970
+        height: 1260
+      alignment: 9
+      pivot: {x: 0.5928934, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccc92fffbd9b36542bc9fe09b03c69e7
+      internalID: 2036346974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f799fe15a2c170e49938a041fbe691c1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      OpendRange_0: 814618697113000308
+      OpendRange_1: 2543552398931590516
+      OpendRange_10: -953684386447376123
+      OpendRange_11: 1281864457073496198
+      OpendRange_12: 7622074024520127330
+      OpendRange_13: 2036346974
+      OpendRange_2: 4822163765267515909
+      OpendRange_3: -1410961750540914391
+      OpendRange_4: -1479961647681165712
+      OpendRange_5: 2115020821098429049
+      OpendRange_6: -3537970461151254580
+      OpendRange_7: 4063259097028771228
+      OpendRange_8: 4682766518514827414
+      OpendRange_9: -8785746475749675068
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
