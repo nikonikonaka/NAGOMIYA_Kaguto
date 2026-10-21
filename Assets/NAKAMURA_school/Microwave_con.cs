@@ -92,12 +92,15 @@ public class Microwave_con : MonoBehaviour
         // 爆発
         ShowImage(explosionImage);
 
+        // 開いたレンジも同時表示
+        SetVisible(openedImage, true);
+
         Explode();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.33f);
 
-        // 開いた状態
-        ShowImage(openedImage);
+        // 爆発画像だけ消す
+        SetVisible(explosionImage, false);
 
         yield return new WaitForSeconds(1f);
 
