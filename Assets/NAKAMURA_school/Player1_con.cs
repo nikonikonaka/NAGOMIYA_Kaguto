@@ -18,6 +18,10 @@ public class Player1_con : MonoBehaviour
     private float attackTimer = 0f;
     private bool airDashUsed = false;
 
+    // レンジ用操作ロック
+    [HideInInspector]
+    public bool lockControl = false;
+
     private Gamepad myPad;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -63,6 +67,23 @@ public class Player1_con : MonoBehaviour
     {
         if (!joined || myPad == null)
             return;
+
+        //操作禁止
+        if (lockControl)
+        {
+            moveInput = 0f;
+
+            if (rb != null)
+            {
+                rb.linearVelocity =
+                    new Vector2(
+                        0f,
+                        rb.linearVelocity.y
+                    );
+            }
+
+            return;
+        }
 
         // 左スティック
         moveInput = myPad.leftStick.x.ReadValue();
@@ -118,12 +139,25 @@ public class Player1_con : MonoBehaviour
         }
     }
 
+    public bool IsFacingLeft()
+    {
+        return sr != null && sr.flipX;
+    }
+
     void FixedUpdate()
     {
         if (!joined || myPad == null)
-        {
             return;
-        }
+
+        if (lockControl)
+            return;
+
+        /*void FixedUpdate()
+        {
+            if (!joined || myPad == null)
+            {
+                return;
+            }*/
 
         // 突進中
         if (isAttacking)

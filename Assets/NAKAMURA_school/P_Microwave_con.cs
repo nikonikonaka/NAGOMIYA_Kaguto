@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
-public class Microwave_con : MonoBehaviour
+public class P_Microwave_con : MonoBehaviour
 {
     [Header("画像オブジェクト")]
     public GameObject defaultImage;
@@ -79,6 +79,7 @@ public class Microwave_con : MonoBehaviour
           
         }
 
+
         // 卵投入
         ShowImage(eggImage);
 
@@ -88,21 +89,23 @@ public class Microwave_con : MonoBehaviour
         ShowImage(heatingImage);
 
         yield return new WaitForSeconds(heatTime);
-
         // 爆発
         ShowImage(explosionImage);
+
+        // アニメーションを最初から再生
+        Animator anim = explosionImage.GetComponent<Animator>();
+        if (anim != null)
+        {
+            anim.Play(0, 0, 0f);
+            anim.Update(0f);
+        }
 
         // 開いたレンジも同時表示
         SetVisible(openedImage, true);
 
         Explode();
 
-        yield return new WaitForSeconds(0.33f);
-
-        // 爆発画像だけ消す
-        SetVisible(explosionImage, false);
-
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.4f);
 
         // 閉じる
         ShowImage(defaultImage);
