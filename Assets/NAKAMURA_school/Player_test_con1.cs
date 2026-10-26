@@ -38,8 +38,8 @@ public class Player_test_con1 : MonoBehaviour
         if (Keyboard.current.dKey.isPressed)
             moveInput = 1f;
 
-        // ジャンプ
-        if (Keyboard.current.spaceKey.wasPressedThisFrame && isGrounded)
+        // ジャンプ　w
+        if (Keyboard.current.wKey.wasPressedThisFrame && isGrounded)
         {
             rb.linearVelocity = new Vector2(
                 rb.linearVelocity.x,
@@ -49,8 +49,8 @@ public class Player_test_con1 : MonoBehaviour
             isGrounded = false;
         }
 
-        // 突進 (Jキー)
-        if (Keyboard.current.jKey.wasPressedThisFrame && !isAttacking)
+        // 突進 (スペースキー)
+        if (Keyboard.current.spaceKey.wasPressedThisFrame && !isAttacking)
         {
             if (isGrounded)
             {
