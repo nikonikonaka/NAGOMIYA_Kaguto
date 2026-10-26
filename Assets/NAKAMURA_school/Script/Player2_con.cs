@@ -1,13 +1,20 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//2Pプレイヤーの移動・ジャンプ・攻撃を管理するクラス
+
 public class Player2_con : MonoBehaviour
 {
+    //移動速度
     public float moveSpeed = 5f;
+    //ジャンプする力
     public float jumpPower = 7f;
 
+    
     [Header("攻撃")]
+    //突進速度
     public float dashSpeed = 12f;
+    //ジャンプ力
     public float dashTime = 1.0f;
     public int attackDamage = 10;
 
@@ -37,7 +44,9 @@ public class Player2_con : MonoBehaviour
 
     void Awake()
     {
+        //物理プログラムを入れる
         rb = GetComponent<Rigidbody2D>();
+        //絵のプラグラムを入れる
         sr = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
 
