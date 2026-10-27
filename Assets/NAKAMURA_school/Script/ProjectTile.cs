@@ -7,10 +7,12 @@ public class Projectile : MonoBehaviour
     public float lifeTime = 3f;
 
     private float dir = 1f;
+    private GameObject owner;
 
-    public void Initialize(float direction)
+    public void Initialize(float direction, GameObject shooter)
     {
         dir = direction;
+        owner = shooter;
 
         Destroy(gameObject, lifeTime);
     }
@@ -23,6 +25,10 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        // î≠éÀÇµÇΩñ{êlÇ…ÇÕìñÇΩÇÁÇ»Ç¢
+        if (col.gameObject == owner)
+            return;
+
         if (col.CompareTag("Player"))
         {
             Player_Health hp =
@@ -32,8 +38,8 @@ public class Projectile : MonoBehaviour
             {
                 hp.TakeDamage(damage);
             }
-        }
 
-        Destroy(gameObject);
+            Destroy(gameObject);
+        }
     }
 }

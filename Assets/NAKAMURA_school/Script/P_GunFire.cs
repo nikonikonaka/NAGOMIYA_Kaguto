@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class P_GunConFire : MonoBehaviour
 {
@@ -11,9 +12,49 @@ public class P_GunConFire : MonoBehaviour
     [Header("プレイヤー")]
     public Player2_con player;
 
+    private bool canShoot = true;
+
+    void Update()
+    {
+        if (player == null || player.myPad == null)
+            return;
+
+        // 向き更新
+        UpdateDirection();
+
+        // Xボタンで発射
+        if (player.myPad.buttonWest.wasPressedThisFrame &&
+            canShoot)
+        {
+            Shoot();
+        }
+    }
+
+    void UpdateDirection()
+    {
+        if (player == null)
+            return;
+
+        bool flip = player.IsFacingLeft();
+
+        if (shotPoint != null)
+        {
+            Vector3 pos = shotPoint.localPosition;
+
+            pos.x = flip
+                ? -Mathf.Abs(pos.x)
+                : Mathf.Abs(pos.x);
+
+            shotPoint.localPosition = pos;
+        }
+    }
+
     public void Shoot()
     {
         if (bulletPrefab == null)
+            return;
+
+        if (shotPoint == null)
             return;
 
         GameObject bullet =
@@ -23,14 +64,27 @@ public class P_GunConFire : MonoBehaviour
                 Quaternion.identity
             );
 
-        float dir = player.IsFacingLeft() ? -1f : 1f;
+        float dir =
+            player != null && player.IsFacingLeft()
+            ? -1f
+            : 1f;
 
-        Projectile p =
+        Projectile projectile =
             bullet.GetComponent<Projectile>();
 
-        if (p != null)
+        if (projectile != null)
         {
-            p.Initialize(dir);
+            projectile.Initialize(
+                dir,
+                player.gameObject
+            );
+        }
+        SpriteRenderer sr =
+            bullet.GetComponent<SpriteRenderer>();
+
+        if (sr != null)
+        {
+            sr.flipX = dir < 0;
         }
     }
 }

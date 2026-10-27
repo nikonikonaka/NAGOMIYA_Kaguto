@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1030335970575094163}
   - component: {fileID: 901385759232466502}
   m_Layer: 0
-  m_Name: Exprotion (1)_0
+  m_Name: A_Exprotion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
