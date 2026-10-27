@@ -4,17 +4,18 @@ using UnityEngine.InputSystem;
 
 public class Joycon : MonoBehaviour
 {
+    public Gamepad Player1Pad => player1Pad;
+    public Gamepad Player2Pad => player2Pad;
+
     public Player1_con player1;
     public Player2_con player2;
 
     private Gamepad player1Pad;
     private Gamepad player2Pad;
 
-    private bool player1Joined;
-    private bool player2Joined;
-
     void Awake()
     {
+        // 最初は両プレイヤーの操作を停止
         if (player1 != null)
             player1.enabled = false;
 
@@ -24,20 +25,18 @@ public class Joycon : MonoBehaviour
 
     void Start()
     {
-        // Aボタンを押す前に、接続順で登録する
+        // Aボタンを押さずに接続順で割り当てる
         AssignControllers();
     }
 
     void AssignControllers()
     {
-        // 接続されているコントローラーを取得
         var gamepads = Gamepad.all;
 
-        // 1台目を1Pに登録
+        // 1台目を1Pに割り当て
         if (gamepads.Count >= 1)
         {
             player1Pad = gamepads[0];
-            player1Joined = true;
 
             if (player1 != null)
             {
@@ -51,12 +50,15 @@ public class Joycon : MonoBehaviour
                 " / ID=" + player1Pad.deviceId
             );
         }
+        else
+        {
+            Debug.LogWarning("1P用コントローラーが接続されていません");
+        }
 
-        // 2台目を2Pに登録
+        // 2台目を2Pに割り当て
         if (gamepads.Count >= 2)
         {
             player2Pad = gamepads[1];
-            player2Joined = true;
 
             if (player2 != null)
             {
@@ -69,6 +71,10 @@ public class Joycon : MonoBehaviour
                 player2Pad.displayName +
                 " / ID=" + player2Pad.deviceId
             );
+        }
+        else
+        {
+            Debug.LogWarning("2P用コントローラーが接続されていません");
         }
     }
 }
