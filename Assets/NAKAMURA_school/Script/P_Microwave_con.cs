@@ -144,7 +144,7 @@ public class P_Microwave_con : MonoBehaviour
         }
     }
 
-    void Explode()
+    void Explode()//爆発処理
     {
         Collider2D[] targets =
             Physics2D.OverlapCircleAll(
@@ -183,6 +183,15 @@ public class P_Microwave_con : MonoBehaviour
         }
 
         Debug.Log("レンジ爆発！");
+    }
+
+    //公開用関数
+    public void UseMicrowave()
+    {
+        if (!heating)
+        {
+            StartCoroutine(HeatRoutine());
+        }
     }
 
     void OnDrawGizmosSelected()

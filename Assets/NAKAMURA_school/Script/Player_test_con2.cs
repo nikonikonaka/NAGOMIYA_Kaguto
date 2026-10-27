@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +10,9 @@ public class Player_test_con2 : MonoBehaviour
     public float dashSpeed = 12f;
     public float dashTime = 1.0f;
     public int attackDamage = 10;
+
+    [Header("電子レンジ")]
+    public P_Microwave_con microwave;
 
     private bool isAttacking = false;
     private float attackTimer = 0f;
@@ -32,6 +34,11 @@ public class Player_test_con2 : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
 
+        if (microwave == null)
+        {
+            microwave = FindFirstObjectByType<P_Microwave_con>();
+        }
+
         Debug.Log("[2P] Awake: " + gameObject.name);
     }
 
@@ -46,13 +53,15 @@ public class Player_test_con2 : MonoBehaviour
             " / ID=" + myPad.deviceId
         );
     }
+
     void Update()
     {
-        // ゲームパッドがあればゲームパッド入力
+        // ゲームパッド
         if (joined && myPad != null)
         {
             moveInput = myPad.leftStick.x.ReadValue();
 
+            // Aボタンジャンプ
             if (myPad.buttonSouth.wasPressedThisFrame && isGrounded)
             {
                 rb.linearVelocity = new Vector2(
@@ -63,24 +72,34 @@ public class Player_test_con2 : MonoBehaviour
                 isGrounded = false;
             }
 
+            // Bボタン突進
             if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
             {
                 isAttacking = true;
                 attackTimer = dashTime;
             }
+
+            // Yボタン電子レンジ
+            if (myPad.buttonNorth.wasPressedThisFrame)
+            {
+                if (microwave != null)
+                {
+                    microwave.UseMicrowave();
+                }
+            }
         }
+        // キーボード
         else
         {
             moveInput = 0f;
 
-            // ← →
             if (Keyboard.current.leftArrowKey.isPressed)
                 moveInput = -1f;
 
             if (Keyboard.current.rightArrowKey.isPressed)
                 moveInput = 1f;
 
-            // ↑ ジャンプ
+            // ↑ジャンプ
             if (Keyboard.current.upArrowKey.wasPressedThisFrame
                 && isGrounded)
             {
@@ -92,25 +111,26 @@ public class Player_test_con2 : MonoBehaviour
                 isGrounded = false;
             }
 
-            // 右Ctrl 攻撃
-            if (Keyboard.current.rightCtrlKey.wasPressedThisFrame
-                && !isAttacking)
+      
+            // ctrlキーで電子レンジ
+            if (Keyboard.current.ctrlKey.wasPressedThisFrame)
             {
-                isAttacking = true;
-                attackTimer = dashTime;
+                if (microwave != null)
+                {
+                    microwave.UseMicrowave();
+                }
             }
         }
+
         // 向き
         if (moveInput > 0.1f)
             sr.flipX = false;
         else if (moveInput < -0.1f)
             sr.flipX = true;
     }
+
     void FixedUpdate()
     {
-       
-
-        // 突進中
         if (isAttacking)
         {
             attackTimer -= Time.fixedDeltaTime;
@@ -130,7 +150,6 @@ public class Player_test_con2 : MonoBehaviour
             return;
         }
 
-        // 通常移動
         rb.linearVelocity = new Vector2(
             moveInput * moveSpeed,
             rb.linearVelocity.y
@@ -144,7 +163,6 @@ public class Player_test_con2 : MonoBehaviour
             isGrounded = true;
         }
 
-        // 突進中に相手へダメージ
         if (isAttacking && col.gameObject.CompareTag("Player"))
         {
             Player_Health hp =
