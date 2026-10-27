@@ -10,6 +10,7 @@ public class Player_test_con1 : MonoBehaviour
     public float dashSpeed = 12f;
     public float dashTime = 1.0f;
     public int attackDamage = 10;
+    public P_Springcon springAttack;
 
     private bool isAttacking = false;
     private float attackTimer = 0f;
@@ -77,23 +78,9 @@ public class Player_test_con1 : MonoBehaviour
         // ìÀêiíÜ
         if (isAttacking)
         {
-            attackTimer -= Time.fixedDeltaTime;
-
-            float dir = sr.flipX ? -1f : 1f;
-
-            rb.linearVelocity = new Vector2(
-                dir * dashSpeed,
-                rb.linearVelocity.y
-            );
-
-            if (attackTimer <= 0f)
-            {
-                isAttacking = false;
-            }
-
-            return;
+            springAttack.StartAttack();
+            isAttacking = false;
         }
-
         // í èÌà⁄ìÆ
         rb.linearVelocity = new Vector2(
             moveInput * moveSpeed,

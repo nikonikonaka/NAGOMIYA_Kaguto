@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class P_Springcon : MonoBehaviour
 {
@@ -54,7 +55,7 @@ public class P_Springcon : MonoBehaviour
         }
     }
 
-    void StartAttack()
+    public void StartAttack()
     {
         attacking = true;
         timer = attackTime;
@@ -111,6 +112,11 @@ public class P_Springcon : MonoBehaviour
         {
             sr.flipX = flip;
         }
+    }
+
+    public void UsestartAttack()
+    {
+        StartAttack();
     }
 
     void ShowImage(GameObject target)
