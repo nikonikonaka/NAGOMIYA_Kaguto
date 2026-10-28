@@ -1630,7 +1630,7 @@ MonoBehaviour:
   consentAnim: {fileID: 5566518421489312019}
   consentAnimator: {fileID: 6507009959211603133}
   attackRadius: 2
-  damage: 20
+  damage: 300
   attackForce: 500
 --- !u!1 &1960115142
 GameObject:
