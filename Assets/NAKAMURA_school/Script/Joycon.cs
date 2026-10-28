@@ -4,14 +4,16 @@ using UnityEngine.InputSystem;
 
 public class Joycon : MonoBehaviour
 {
-    public Gamepad Player1Pad => player1Pad;
-    public Gamepad Player2Pad => player2Pad;
+   
 
     public Player1_con player1;
     public Player2_con player2;
 
     private Gamepad player1Pad;
     private Gamepad player2Pad;
+
+    public Gamepad Player1Pad => player1Pad;
+    public Gamepad Player2Pad => player2Pad;
 
     void Awake()
     {
