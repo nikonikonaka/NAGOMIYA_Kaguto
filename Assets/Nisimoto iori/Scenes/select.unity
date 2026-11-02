@@ -508,12 +508,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 904365808}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1489827557}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &904365812
 MonoBehaviour:
@@ -588,6 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e7920cebdd90004b8806c3096f7d69d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joycon: {fileID: 1172524463}
   characterPrefabs:
   - {fileID: 8003463387337817301, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
   - {fileID: 8597429736026469174, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
@@ -807,7 +808,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 904365811}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1495749205
@@ -1175,7 +1177,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 904365811}
   - {fileID: 2130200331}
   - {fileID: 1489827557}
   - {fileID: 2142538999}
