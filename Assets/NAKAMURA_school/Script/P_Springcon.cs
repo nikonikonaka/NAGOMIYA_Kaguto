@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class P_Springcon : MonoBehaviour
 {
@@ -6,40 +7,89 @@ public class P_Springcon : MonoBehaviour
     public GameObject defaultImage;
     public GameObject spinImage;
 
-    [Header("プレイヤー(Joy-Con用)")]
+    [Header("オーラ")]
+    public GameObject auraObject;
+
+    [Header("プレイヤー")]
     public Player1_con player;
 
-    [Header("攻撃")]
-    public float moveSpeed = 8f;
+    [Header("突進")]
     public float attackTime = 1f;
     public int damage = 20;
+
+    [Header("速度")]
+    public float baseSpeed = 15f;
+    public float auraSpeed = 8f;
+
+    [Header("オーラ設定")]
+    public int maxAura = 10;
+    public float auraResetTime = 3f;
+
+    private int auraCount = 0;
+    private float auraTimer = 0f;
 
     private bool attacking = false;
     private float timer;
 
     private Rigidbody2D rb;
 
+    private float attackDirection;
+    private float attackVelocity;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
         ShowImage(defaultImage);
+
+        if (auraObject != null)
+        {
+            SetAuraAlpha(0f);
+        }
     }
 
     void Update()
     {
         UpdateDirection();
 
-        // Joy-Con攻撃
-        if (player != null &&
-            player.myPad != null &&
-            !attacking &&
-            player.myPad.buttonEast.wasPressedThisFrame &&
-            Mathf.Abs(player.myPad.leftStick.x.ReadValue()) > 0.3f)
+        if (player == null || player.myPad == null)
+            return;
+
+        // Xでオーラ
+        if (player.myPad.buttonWest.wasPressedThisFrame)
+        {
+            auraCount++;
+
+            if (auraCount > maxAura)
+                auraCount = maxAura;
+
+            auraTimer = auraResetTime;
+
+            SetAuraAlpha(
+                (float)auraCount / maxAura
+            );
+        }
+
+        // Bで突進
+        if (!attacking &&
+            player.myPad.buttonEast.wasPressedThisFrame)
         {
             StartAttack();
         }
 
+        // オーラ消滅
+        if (auraCount > 0)
+        {
+            auraTimer -= Time.deltaTime;
+
+            if (auraTimer <= 0f)
+            {
+                auraCount = 0;
+                SetAuraAlpha(0f);
+            }
+        }
+
+        // 攻撃終了
         if (attacking)
         {
             timer -= Time.deltaTime;
@@ -47,9 +97,32 @@ public class P_Springcon : MonoBehaviour
             if (timer <= 0f)
             {
                 attacking = false;
+
+                rb.linearVelocity =
+                    new Vector2(
+                        0f,
+                        rb.linearVelocity.y
+                    );
+
                 ShowImage(defaultImage);
+
+                auraCount = 0;
+
+                SetAuraAlpha(0f);
             }
         }
+    }
+
+    void FixedUpdate()
+    {
+        if (!attacking)
+            return;
+
+        rb.linearVelocity =
+            new Vector2(
+                attackDirection * attackVelocity,
+                rb.linearVelocity.y
+            );
     }
 
     public void StartAttack()
@@ -59,60 +132,55 @@ public class P_Springcon : MonoBehaviour
 
         ShowImage(spinImage);
 
-        Animator anim = spinImage.GetComponent<Animator>();
+        Animator anim =
+            spinImage.GetComponent<Animator>();
 
         if (anim != null)
         {
             anim.Play("Spring", 0, 0f);
             anim.Update(0f);
         }
+
+        attackDirection =
+            player.IsFacingLeft()
+            ? -1f
+            : 1f;
+
+        attackVelocity =
+            baseSpeed +
+            auraCount * auraSpeed;
     }
 
-    void FixedUpdate()
+    void SetAuraAlpha(float alpha)
     {
-        if (!attacking)
+        if (auraObject == null)
             return;
 
-        float dir = 0f;
+        SpriteRenderer sr =
+            auraObject.GetComponent<SpriteRenderer>();
 
-        // キーボード
-        if (Input.GetKey(KeyCode.D))
-            dir = 1f;
-        else if (Input.GetKey(KeyCode.A))
-            dir = -1f;
+        if (sr == null)
+            return;
 
-        // Joy-Con
-        if (player != null && player.myPad != null)
-        {
-            float stick = player.myPad.leftStick.x.ReadValue();
+        Color c = sr.color;
+        c.a = alpha;
+        sr.color = c;
 
-            if (Mathf.Abs(stick) > 0.3f)
-                dir = stick > 0 ? 1f : -1f;
-        }
-
-        rb.linearVelocity = new Vector2(
-            dir * moveSpeed,
-            rb.linearVelocity.y
-        );
+        auraObject.transform.localScale =
+            Vector3.one * (1f + alpha);
     }
 
     void UpdateDirection()
     {
-        bool flip = false;
+        if (player == null)
+            return;
 
-        // キーボード
-        if (Input.GetKey(KeyCode.A))
-            flip = true;
-
-        if (Input.GetKey(KeyCode.D))
-            flip = false;
-
-        // Joy-Con
-        if (player != null)
-            flip = player.IsFacingLeft();
+        bool flip =
+            player.IsFacingLeft();
 
         SetFlip(defaultImage, flip);
         SetFlip(spinImage, flip);
+        SetFlip(auraObject, flip);
     }
 
     void SetFlip(GameObject obj, bool flip)
@@ -120,15 +188,13 @@ public class P_Springcon : MonoBehaviour
         if (obj == null)
             return;
 
-        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+        SpriteRenderer sr =
+            obj.GetComponent<SpriteRenderer>();
 
         if (sr != null)
+        {
             sr.flipX = flip;
-    }
-
-    public void UsestartAttack()
-    {
-        StartAttack();
+        }
     }
 
     void ShowImage(GameObject target)
@@ -144,10 +210,18 @@ public class P_Springcon : MonoBehaviour
         if (obj == null)
             return;
 
-        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+        SpriteRenderer sr =
+            obj.GetComponent<SpriteRenderer>();
 
         if (sr != null)
+        {
             sr.enabled = visible;
+        }
+    }
+
+    public void UsestartAttack()
+    {
+        StartAttack();
     }
 
     void OnCollisionEnter2D(Collision2D col)
@@ -161,10 +235,17 @@ public class P_Springcon : MonoBehaviour
                 col.gameObject.GetComponent<Player_Health>();
 
             if (hp != null)
-                hp.TakeDamage(damage);
+            {
+                int finalDamage =
+                    damage +
+                    auraCount * 5;
+
+                hp.TakeDamage(finalDamage);
+            }
         }
     }
 }
+
 /*using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 
