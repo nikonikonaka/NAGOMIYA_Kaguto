@@ -6,7 +6,7 @@ public class Push : MonoBehaviour
 
     private Rigidbody2D rb;
 
-   
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -44,3 +44,26 @@ public class Push : MonoBehaviour
         rb.angularVelocity = 0f;
     }
 }
+
+//‰Ÿ‚µ•Ô‚·
+/*using UnityEngine;
+
+public class Push : MonoBehaviour
+{
+    [SerializeField]
+    private float pushDistance = 1.0f;
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.CompareTag("Player"))
+            return;
+
+        Vector2 dir =
+            (other.transform.position - transform.position).normalized;
+
+        other.transform.position =
+            (Vector2)other.transform.position +
+            dir * pushDistance;
+    }
+}
+*/

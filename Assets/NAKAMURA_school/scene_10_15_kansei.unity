@@ -2527,6 +2527,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1963241737}
+    - target: {fileID: 3932788267528639510, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4908990701200151566, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: springAttack
       value: 
@@ -2690,6 +2694,10 @@ PrefabInstance:
     - target: {fileID: 5897208943232476165, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
       propertyPath: m_SortingOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6841712435415945796, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6841712435415945796, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
       propertyPath: pushPower
