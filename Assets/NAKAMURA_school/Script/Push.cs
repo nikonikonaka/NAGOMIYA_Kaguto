@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Push : MonoBehaviour
 {
-    public float pushPower = 2f;
+    public float pushPower = 0f;
 
     private Rigidbody2D rb;
 

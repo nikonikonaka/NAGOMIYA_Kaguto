@@ -186,25 +186,26 @@ public class Player1_con : MonoBehaviour
         );
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionExit2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Ground") ||
-            col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag("Ground"))
         {
-            isGrounded = true;
-            airDashUsed = false;
+            isGrounded = false;
         }
+    }
 
-        if (isAttacking && col.gameObject.CompareTag("Player"))
+    void OnCollisionStay2D(Collision2D col)
+    {
+        foreach (ContactPoint2D point in col.contacts)
         {
-            Player_Health hp =
-                col.gameObject.GetComponent<Player_Health>();
-
-            if (hp != null)
+            if (point.normal.y > 0.5f)
             {
-                hp.TakeDamage(attackDamage);
-                isAttacking = false;
+                isGrounded = true;
+                airDashUsed = false;
+                return;
             }
         }
+
+        isGrounded = false;
     }
 }
