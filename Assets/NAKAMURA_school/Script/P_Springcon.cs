@@ -13,7 +13,7 @@ public class P_Springcon : MonoBehaviour
     [Header("プレイヤー")]
     public Player1_con player;
 
-    [Header("突進")]
+    [Header("通常突進")]
     public float attackTime = 1f;
     public int damage = 20;
 
@@ -25,10 +25,21 @@ public class P_Springcon : MonoBehaviour
     public int maxAura = 10;
     public float auraResetTime = 3f;
 
+    [Header("スクリューアタック")]
+    public float screwPowerX = 15f;
+    public float screwPowerY = 10f;
+    public float screwTime = 0.5f;
+    public int screwDamage = 30;
+
+    [Header("回転")]
+    public float spinSpeed = 1080f;
+
     private int auraCount = 0;
     private float auraTimer = 0f;
 
     private bool attacking = false;
+    private bool screwAttacking = false;
+
     private float timer;
 
     private Rigidbody2D rb;
@@ -55,8 +66,26 @@ public class P_Springcon : MonoBehaviour
         if (player == null || player.myPad == null)
             return;
 
-        // Xでオーラ
-        if (player.myPad.buttonWest.wasPressedThisFrame)
+        // スクリュー中回転
+        if (screwAttacking)
+        {
+            transform.Rotate(
+                0f,
+                0f,
+                spinSpeed * Time.deltaTime
+            );
+        }
+
+        // 空中X → スクリューアタック
+        if (!player.IsGrounded() &&
+            player.myPad.buttonNorth.wasPressedThisFrame &&
+            !attacking)
+        {
+            StartScrewAttack();
+        }
+        // 地上X → オーラ
+        else if (player.IsGrounded() &&
+                 player.myPad.buttonWest.wasPressedThisFrame)
         {
             auraCount++;
 
@@ -70,7 +99,7 @@ public class P_Springcon : MonoBehaviour
             );
         }
 
-        // Bで突進
+        // Bで通常突進
         if (!attacking &&
             player.myPad.buttonEast.wasPressedThisFrame)
         {
@@ -97,6 +126,9 @@ public class P_Springcon : MonoBehaviour
             if (timer <= 0f)
             {
                 attacking = false;
+                screwAttacking = false;
+
+                transform.rotation = Quaternion.identity;
 
                 rb.linearVelocity =
                     new Vector2(
@@ -107,7 +139,6 @@ public class P_Springcon : MonoBehaviour
                 ShowImage(defaultImage);
 
                 auraCount = 0;
-
                 SetAuraAlpha(0f);
             }
         }
@@ -118,6 +149,17 @@ public class P_Springcon : MonoBehaviour
         if (!attacking)
             return;
 
+        if (screwAttacking)
+        {
+            rb.linearVelocity =
+                new Vector2(
+                    attackDirection * screwPowerX,
+                    screwPowerY
+                );
+
+            return;
+        }
+
         rb.linearVelocity =
             new Vector2(
                 attackDirection * attackVelocity,
@@ -125,9 +167,12 @@ public class P_Springcon : MonoBehaviour
             );
     }
 
+    // 通常突進
     public void StartAttack()
     {
         attacking = true;
+        screwAttacking = false;
+
         timer = attackTime;
 
         ShowImage(spinImage);
@@ -149,6 +194,28 @@ public class P_Springcon : MonoBehaviour
         attackVelocity =
             baseSpeed +
             auraCount * auraSpeed;
+    }
+
+    // スクリューアタック
+    public void StartScrewAttack()
+    {
+        attacking = true;
+        screwAttacking = true;
+
+        timer = screwTime;
+
+        ShowImage(spinImage);
+
+        attackDirection =
+            player.IsFacingLeft()
+            ? -1f
+            : 1f;
+
+        rb.linearVelocity =
+            new Vector2(
+                attackDirection * screwPowerX,
+                screwPowerY
+            );
     }
 
     void SetAuraAlpha(float alpha)
@@ -236,11 +303,22 @@ public class P_Springcon : MonoBehaviour
 
             if (hp != null)
             {
-                int finalDamage =
-                    damage +
-                    auraCount * 5;
+                int finalDamage;
+
+                if (screwAttacking)
+                {
+                    finalDamage = screwDamage;
+                }
+                else
+                {
+                    finalDamage =
+                        damage +
+                        auraCount * 5;
+                }
 
                 hp.TakeDamage(finalDamage);
+
+              
             }
         }
     }

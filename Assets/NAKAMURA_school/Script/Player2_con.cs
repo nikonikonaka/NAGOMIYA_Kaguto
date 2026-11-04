@@ -34,6 +34,8 @@ public class Player2_con : MonoBehaviour
     // レンジ用操作ロック
     [HideInInspector]
     public bool lockControl = false;
+    [HideInInspector]
+    public bool knockback = false;
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -82,11 +84,11 @@ public class Player2_con : MonoBehaviour
 
             if (rb != null)
             {
-                rb.linearVelocity =
+            /*    rb.linearVelocity =
                     new Vector2(
                         0f,
                         rb.linearVelocity.y
-                    );
+                    );*/
             }
 
             return;
@@ -107,7 +109,7 @@ public class Player2_con : MonoBehaviour
         }
 
         // Bボタンで突進
-        if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
+        /*  if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
         {
             if (isGrounded)
             {
@@ -130,7 +132,7 @@ public class Player2_con : MonoBehaviour
                     audioSource.PlayOneShot(dashSE);
                 }
             }
-        }
+        }*/
 
         if (moveInput > 0.1f)
             sr.flipX = false;
@@ -143,12 +145,19 @@ public class Player2_con : MonoBehaviour
         return sr != null && sr.flipX;
     }
 
+    public void EndKnockback()
+    {
+        knockback = false;
+    }
     void FixedUpdate()
     {
         if (!joined || myPad == null)
             return;
 
         if (lockControl)
+            return;
+
+        if (knockback)
             return;
 
         if (isAttacking)
@@ -197,6 +206,11 @@ public class Player2_con : MonoBehaviour
         }
 
         isGrounded = false;
+    }
+
+    public bool IsGrounded()
+    {
+        return isGrounded;
     }
 
 }

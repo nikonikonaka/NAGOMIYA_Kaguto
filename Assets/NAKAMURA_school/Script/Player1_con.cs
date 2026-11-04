@@ -1,3 +1,5 @@
+
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +15,8 @@ public class Player1_con : MonoBehaviour
 
     [Header("SE")]
     public AudioClip dashSE;
+    [HideInInspector]
+    public bool knockback = false;
 
     private bool isAttacking = false;
     private float attackTimer = 0f;
@@ -68,18 +72,17 @@ public class Player1_con : MonoBehaviour
         if (!joined || myPad == null)
             return;
 
-        //ëÄçÏã÷é~
         if (lockControl)
         {
             moveInput = 0f;
 
             if (rb != null)
             {
-                rb.linearVelocity =
-                    new Vector2(
-                        0f,
-                        rb.linearVelocity.y
-                    );
+                /*    rb.linearVelocity =
+                        new Vector2(
+                            0f,
+                            rb.linearVelocity.y
+                        );*/
             }
 
             return;
@@ -144,12 +147,19 @@ public class Player1_con : MonoBehaviour
         return sr != null && sr.flipX;
     }
 
+    public void EndKnockback()
+    {
+        knockback = false;
+    }
     void FixedUpdate()
     {
         if (!joined || myPad == null)
             return;
 
         if (lockControl)
+            return;
+
+        if (knockback)
             return;
 
         /*void FixedUpdate()
@@ -207,5 +217,10 @@ public class Player1_con : MonoBehaviour
         }
 
         isGrounded = false;
+    }
+
+    public bool IsGrounded()
+    {
+        return isGrounded;
     }
 }
