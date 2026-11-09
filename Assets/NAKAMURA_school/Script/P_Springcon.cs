@@ -110,7 +110,7 @@ public class P_Springcon : MonoBehaviour
         if (auraCount > 0)
         {
             auraTimer -= Time.deltaTime;
-
+            
             if (auraTimer <= 0f)
             {
                 auraCount = 0;
@@ -313,7 +313,7 @@ public class P_Springcon : MonoBehaviour
                 {
                     finalDamage =
                         damage +
-                        auraCount * 5;
+                        auraCount * 15;
                 }
 
                 hp.TakeDamage(finalDamage);

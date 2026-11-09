@@ -1912,15 +1912,23 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1461404554}
     m_Modifications:
     - target: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.48
+      value: 4.261165
       objectReference: {fileID: 0}
     - target: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.62
+      value: 0.019240104
       objectReference: {fileID: 0}
     - target: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1932,15 +1940,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2029,6 +2037,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.4549581, y: 1.5214189}
   m_EdgeRadius: 0
+--- !u!4 &1428333759 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
+  m_PrefabInstance: {fileID: 1428333755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1461404550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2095,7 +2108,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1428333759}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3647145769074988083, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
       insertIndex: -1
@@ -2152,6 +2168,11 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.2839879, y: 1.5755589}
   m_EdgeRadius: 0
+--- !u!4 &1461404554 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
+  m_PrefabInstance: {fileID: 1461404550}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1580455501
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,8 +2632,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1815395153}
     - target: {fileID: 1239580833917401798, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
+      propertyPath: auraSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1239580833917401798, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: screwTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1239580833917401798, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
+      propertyPath: spinSpeed
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 1239580833917401798, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: auraObject
@@ -2620,7 +2649,7 @@ PrefabInstance:
       objectReference: {fileID: 768640687}
     - target: {fileID: 1239580833917401798, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: screwDamage
-      value: 1000
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 1239580833917401798, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: screwPowerX
@@ -2628,11 +2657,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1239580833917401798, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: screwPowerY
-      value: -0.8
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1239580833917401798, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: auraResetTime
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1432290173485806099, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: downAngle
@@ -2651,11 +2680,23 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3978847915794933971, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
+      propertyPath: m_Mass
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3978847915794933971, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: m_Constraints
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3978847915794933971, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
       propertyPath: m_GravityScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3978847915794933971, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
+      propertyPath: m_LinearDamping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3978847915794933971, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
+      propertyPath: m_AngularDamping
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4822449490041954561, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
@@ -2840,7 +2881,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8013770978078421777, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
       propertyPath: m_Mass
-      value: 100000
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8013770978078421777, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
+      propertyPath: m_LinearDamping
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8013770978078421777, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
       propertyPath: m_AngularDamping
@@ -3016,7 +3061,6 @@ SceneRoots:
   - {fileID: 1963241738}
   - {fileID: 5932285885130087832}
   - {fileID: 1461404550}
-  - {fileID: 1428333755}
   - {fileID: 673449847}
   - {fileID: 348166581}
   - {fileID: 1861050597940254287}
