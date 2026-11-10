@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,21 +18,24 @@ public class Player_Health : MonoBehaviour
         UpdateHealthBar();
     }
 
+    // 外部からHPバーを設定する
+    public void SetHealthBar(Slider slider)
+    {
+        healthBar = slider;
+        UpdateHealthBar();
+    }
+
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
 
         if (currentHealth < 0)
-        {
             currentHealth = 0;
-        }
 
         UpdateHealthBar();
 
         if (currentHealth <= 0)
-        {
             KO();
-        }
     }
 
     void UpdateHealthBar()
@@ -47,19 +51,14 @@ public class Player_Health : MonoBehaviour
     {
         Debug.Log(gameObject.name + " KO!");
 
-        // プレイヤー操作停止
-        MonoBehaviour movement = GetComponent<Player1_con>();
-        if (movement != null)
-        {
-            movement.enabled = false;
-        }
-        MonoBehaviour movement2 = GetComponent<Player2_con>();
-        if (movement2 != null)
-        {
-            movement2.enabled = false;
-        }
+        Player1_con p1 = GetComponent<Player1_con>();
+        if (p1 != null)
+            p1.enabled = false;
 
-        // Resultシーンへ移動
+        Player2_con p2 = GetComponent<Player2_con>();
+        if (p2 != null)
+            p2.enabled = false;
+
         SceneManager.LoadScene("Result");
     }
 
@@ -68,9 +67,7 @@ public class Player_Health : MonoBehaviour
         currentHealth += amount;
 
         if (currentHealth > maxHealth)
-        {
             currentHealth = maxHealth;
-        }
 
         UpdateHealthBar();
     }

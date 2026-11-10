@@ -212,6 +212,32 @@ public class CharacterSelectPreview : MonoBehaviour
         if (isLoading)
             return;
 
+        // 選択データが正しいか確認
+        if (characterPrefabs == null ||
+            player1Index >= characterPrefabs.Length ||
+            player2Index >= characterPrefabs.Length)
+        {
+            Debug.LogError("キャラクター選択データが不正です！");
+            return;
+        }
+
+        // 選択したPrefabを保存
+        CharacterSelectData.Player1Character =
+            characterPrefabs[player1Index];
+
+        CharacterSelectData.Player2Character =
+            characterPrefabs[player2Index];
+
+        Debug.Log(
+            "1P選択キャラ: " +
+            CharacterSelectData.Player1Character.name
+        );
+
+        Debug.Log(
+            "2P選択キャラ: " +
+            CharacterSelectData.Player2Character.name
+        );
+
         isLoading = true;
 
         Debug.Log("両プレイヤー決定！バトル開始！");

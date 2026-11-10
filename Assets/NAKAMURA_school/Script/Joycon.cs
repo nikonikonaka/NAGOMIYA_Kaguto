@@ -4,6 +4,69 @@ using UnityEngine.InputSystem;
 
 public class Joycon : MonoBehaviour
 {
+    // 1P・2Pのコントローラー
+    private Gamepad player1Pad;
+    private Gamepad player2Pad;
+
+    // 他のスクリプトから取得するためのプロパティ
+    public Gamepad Player1Pad => player1Pad;
+    public Gamepad Player2Pad => player2Pad;
+
+    void Start()
+    {
+        AssignControllers();
+    }
+
+    // 接続順でコントローラーを割り当てる
+    void AssignControllers()
+    {
+        var gamepads = Gamepad.all;
+
+        // 1P
+        if (gamepads.Count >= 1)
+        {
+            player1Pad = gamepads[0];
+
+            Debug.Log(
+                "[接続登録] 1P: " +
+                player1Pad.displayName +
+                " / ID=" + player1Pad.deviceId
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                "1P用コントローラーが接続されていません"
+            );
+        }
+
+        // 2P
+        if (gamepads.Count >= 2)
+        {
+            player2Pad = gamepads[1];
+
+            Debug.Log(
+                "[接続登録] 2P: " +
+                player2Pad.displayName +
+                " / ID=" + player2Pad.deviceId
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                "2P用コントローラーが接続されていません"
+            );
+        }
+    }
+}
+
+
+/*
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Joycon : MonoBehaviour
+{
    
 
     public Player1_con player1;
@@ -80,6 +143,7 @@ public class Joycon : MonoBehaviour
         }
     }
 }
+*/
 /* 先に接続順で登録する場合のコード例
  * public Player1_con player1;
    public Player2_con player2;
