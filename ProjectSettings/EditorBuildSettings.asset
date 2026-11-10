@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/NAKAMURA_school/scene_10_15_kansei.unity
     guid: fe9987cc1d34ce141acdf5a9d464eaf9
+  - enabled: 1
+    path: Assets/Nisimoto iori/Scenes/start.unity
+    guid: 637e9ed774dafe8409decd185df1f120
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
