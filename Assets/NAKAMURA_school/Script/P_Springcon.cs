@@ -142,7 +142,7 @@ public class P_Springcon : MonoBehaviour
 
                 player.lockControl = false;
 
-                transform.rotation = Quaternion.identity;
+            
 
                 rb.linearVelocity =
                     new Vector2(
