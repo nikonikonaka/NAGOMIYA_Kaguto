@@ -18,8 +18,8 @@ public class P_Springcon : MonoBehaviour
     public int damage = 20;
 
     [Header("速度")]
-    public float baseSpeed = 15f;
-    public float auraSpeed = 8f;
+    public float baseSpeed = 5f;
+    public float auraSpeed = 1f;
 
     [Header("オーラ設定")]
     public int maxAura = 10;
@@ -101,9 +101,21 @@ public class P_Springcon : MonoBehaviour
 
         // Bで通常突進
         if (!attacking &&
-            player.myPad.buttonEast.wasPressedThisFrame)
+           player.myPad.buttonEast.wasPressedThisFrame)
         {
-            StartAttack();
+            float stick =
+                player.myPad.leftStick.x.ReadValue();
+
+            // スティック入ってる
+            if (Mathf.Abs(stick) > 0.1f)
+            {
+                StartAttack();
+            }
+            // Bだけ
+            else
+            {
+                StartSpinOnly();
+            }
         }
 
         // オーラ消滅
@@ -118,7 +130,7 @@ public class P_Springcon : MonoBehaviour
             }
         }
 
-        // 攻撃終了
+        // 突進攻撃終了
         if (attacking)
         {
             timer -= Time.deltaTime;
@@ -127,6 +139,8 @@ public class P_Springcon : MonoBehaviour
             {
                 attacking = false;
                 screwAttacking = false;
+
+                player.lockControl = false;
 
                 transform.rotation = Quaternion.identity;
 
@@ -156,7 +170,7 @@ public class P_Springcon : MonoBehaviour
                     attackDirection * screwPowerX,
                     screwPowerY
                 );
-
+            player.lockControl = false;
             return;
         }
 
@@ -165,35 +179,51 @@ public class P_Springcon : MonoBehaviour
                 attackDirection * attackVelocity,
                 rb.linearVelocity.y
             );
-    }
 
+        Debug.Log(attackVelocity);
+    }
+    //回転オンリー
+    public void StartSpinOnly()
+    {
+        attacking = true;
+        screwAttacking = false;
+
+        attackDirection = 0f;
+        attackVelocity = 0f;
+
+        timer = attackTime;
+
+        ShowImage(spinImage);
+
+        rb.linearVelocity =
+            new Vector2(
+                0f,
+                rb.linearVelocity.y
+            );
+    }
     // 通常突進
     public void StartAttack()
     {
         attacking = true;
         screwAttacking = false;
 
+        player.lockControl = true;
+
         timer = attackTime;
 
         ShowImage(spinImage);
 
-        Animator anim =
-            spinImage.GetComponent<Animator>();
-
-        if (anim != null)
-        {
-            anim.Play("Spring", 0, 0f);
-            anim.Update(0f);
-        }
+        float stick =
+            player.myPad.leftStick.x.ReadValue();
 
         attackDirection =
-            player.IsFacingLeft()
-            ? -1f
-            : 1f;
+            Mathf.Sign(stick);
 
         attackVelocity =
             baseSpeed +
             auraCount * auraSpeed;
+
+        
     }
 
     // スクリューアタック

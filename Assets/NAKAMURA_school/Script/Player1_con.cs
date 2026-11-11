@@ -9,7 +9,7 @@ public class Player1_con : MonoBehaviour
     public float jumpPower = 7f;
 
     [Header("攻撃")]
-    public float dashSpeed = 12f;
+    public float dashSpeed = 6f;
     public float dashTime = 1.0f;
     public int attackDamage = 10;
 
@@ -104,7 +104,7 @@ public class Player1_con : MonoBehaviour
         }
 
         // Bボタンで突進
-        if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
+       /* if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
         {
             // 地上
             if (isGrounded)
@@ -129,7 +129,7 @@ public class Player1_con : MonoBehaviour
                     audioSource.PlayOneShot(dashSE);
                 }
             }
-        }
+        }*/
 
         // 向き
         if (moveInput > 0.1f)

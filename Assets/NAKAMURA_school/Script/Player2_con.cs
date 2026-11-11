@@ -13,7 +13,7 @@ public class Player2_con : MonoBehaviour
     
     [Header("攻撃")]
     //突進速度
-    public float dashSpeed = 12f;
+    public float dashSpeed = 6f;
     //ジャンプ力
     public float dashTime = 1.0f;
     public int attackDamage = 10;
@@ -109,7 +109,7 @@ public class Player2_con : MonoBehaviour
         }
 
         // Bボタンで突進
-        /*  if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
+       /*  if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
         {
             if (isGrounded)
             {
