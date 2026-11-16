@@ -1286,9 +1286,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e8ca3e917e3b24da1f9fc7d9e8ebf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalForce: 1
-  verticalForce: 0.1
-  bounceTime: 0.4
+  knockbackX: 50
+  knockbackY: 10
+  edgePower: 0.392
+  knockbackGravity: 4
+  bounceTime: 0.5
   bounceOnlyOnce: 1
 --- !u!114 &613858809735836475
 MonoBehaviour:
