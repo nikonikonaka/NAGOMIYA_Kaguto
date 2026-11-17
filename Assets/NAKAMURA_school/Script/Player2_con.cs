@@ -1,7 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 //2Pプレイヤーの移動・ジャンプ・攻撃を管理するクラス
+
 
 public class Player2_con : MonoBehaviour
 {
@@ -89,6 +91,8 @@ public class Player2_con : MonoBehaviour
                         0f,
                         rb.linearVelocity.y
                     );*/
+
+
             }
 
             return;
@@ -109,7 +113,8 @@ public class Player2_con : MonoBehaviour
         }
 
         // Bボタンで突進
-       /*  if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
+        /*
+        if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
         {
             if (isGrounded)
             {

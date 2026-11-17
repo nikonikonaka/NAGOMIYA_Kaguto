@@ -12,7 +12,6 @@ public class PlayerNew : MonoBehaviour
     public float invincibleTime = 0.2f;
 
     private Rigidbody2D rb;
-    private Player2_con player2;
 
     private float defaultGravity;
     private bool isKnockback;
@@ -21,7 +20,6 @@ public class PlayerNew : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        player2 = GetComponent<Player2_con>();
 
         if (rb != null)
         {
@@ -30,14 +28,16 @@ public class PlayerNew : MonoBehaviour
     }
 
     /// <summary>
-    /// dirX
     /// 1 = âEÇ÷êÅÇ¡îÚÇ‘
     /// -1 = ç∂Ç÷êÅÇ¡îÚÇ‘
     /// </summary>
     public void KnockBack(float dirX)
     {
-        if (!canHit) return;
-        if (rb == null) return;
+        if (!canHit)
+            return;
+
+        if (rb == null)
+            return;
 
         StartCoroutine(KnockBackRoutine(dirX));
     }
@@ -46,11 +46,6 @@ public class PlayerNew : MonoBehaviour
     {
         canHit = false;
         isKnockback = true;
-
-        if (player2 != null)
-        {
-            player2.knockback = true;
-        }
 
         rb.gravityScale = 0f;
 
@@ -64,11 +59,6 @@ public class PlayerNew : MonoBehaviour
         rb.gravityScale = defaultGravity;
 
         isKnockback = false;
-
-        if (player2 != null)
-        {
-            player2.EndKnockback();
-        }
 
         yield return new WaitForSeconds(invincibleTime);
 
