@@ -844,9 +844,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3647145769074988083, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1461404552}
-    - targetCorrespondingSourceObject: {fileID: 3647145769074988083, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1461404555}
   m_SourcePrefab: {fileID: 100100000, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
 --- !u!1 &1461404551 stripped
 GameObject:
@@ -904,19 +901,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2765342699664663297, guid: 0f6a5546464865d4ea686c9bbd5ef1f2, type: 3}
   m_PrefabInstance: {fileID: 1461404550}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1461404555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1461404551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da94efa42e1b80145969a28767d5bcd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pushPower: 2
 --- !u!1 &1715182637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,6 +1404,10 @@ PrefabInstance:
     - target: {fileID: 631288185897850375, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611701433507976486, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
+      propertyPath: verticalForce
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3834141399254896216, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
       propertyPath: MinDistance

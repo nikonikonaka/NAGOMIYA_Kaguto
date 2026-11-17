@@ -1,19 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+
 
 public class PlayerBounce : MonoBehaviour
 {
-    [Header("吹っ飛び設定")]
-    public float knockbackX = 30f;
-
-    public float knockbackY = 4f;
-
-    [Header("吹っ飛び中の重力")]
-    public float knockbackGravity = 5f;
+    [Header("跳ね返す力")]
+    public float horizontalForce = 15f;
+    public float verticalForce = 10f;
 
     [Header("吹っ飛ばし時間")]
-    public float bounceTime = 0.5f;
+    public float bounceTime = 0.4f;
 
     [Header("設定")]
     public bool bounceOnlyOnce = true;
@@ -21,31 +18,27 @@ public class PlayerBounce : MonoBehaviour
     private HashSet<Rigidbody2D> hitPlayers =
         new HashSet<Rigidbody2D>();
 
-    // 現在吹っ飛び中のプレイヤー
-    private HashSet<Rigidbody2D> bouncingPlayers =
-        new HashSet<Rigidbody2D>();
-
     void OnEnable()
     {
         hitPlayers.Clear();
-        bouncingPlayers.Clear();
     }
 
+    // Box Collider 2Dに接触したとき
     void OnTriggerEnter2D(Collider2D other)
     {
-        Transform targetPlayer =
-            FindPlayerRoot(other.transform);
+        Transform targetPlayer = FindPlayerRoot(other.transform);
 
         if (targetPlayer == null)
             return;
 
-        Transform myPlayer =
-            FindPlayerRoot(transform);
+        // 攻撃者自身を取得
+        Transform myPlayer = FindPlayerRoot(transform);
 
-        if (myPlayer != null &&
-            targetPlayer == myPlayer)
+        // 自分自身には当てない
+        if (myPlayer != null && targetPlayer == myPlayer)
             return;
 
+        // 相手のRigidbody2Dを取得
         Rigidbody2D targetRb =
             targetPlayer.GetComponent<Rigidbody2D>();
 
@@ -61,49 +54,45 @@ public class PlayerBounce : MonoBehaviour
         if (targetRb.bodyType != RigidbodyType2D.Dynamic)
             return;
 
-        // 既に吹っ飛び中なら無視
-        if (bouncingPlayers.Contains(targetRb))
-            return;
-
-        if (bounceOnlyOnce &&
-            hitPlayers.Contains(targetRb))
+        // 同じ相手への重複判定を防ぐ
+        if (bounceOnlyOnce && hitPlayers.Contains(targetRb))
             return;
 
         hitPlayers.Add(targetRb);
-        bouncingPlayers.Add(targetRb);
 
-        float attackerX =
-            myPlayer != null
+        // 攻撃者と相手の位置から方向を決定
+        float attackerX = myPlayer != null
             ? myPlayer.position.x
             : transform.position.x;
 
-        float dir =
-            Mathf.Sign(
-                targetRb.position.x - attackerX
-            );
+        float dir = Mathf.Sign(
+            targetRb.position.x - attackerX
+        );
 
         if (dir == 0f)
         {
-            SpriteRenderer sr =
+            SpriteRenderer attackerSr =
                 myPlayer != null
                 ? myPlayer.GetComponentInChildren<SpriteRenderer>()
-                : null;
+             : null;
 
-            dir =
-                (sr != null && sr.flipX)
+            dir = attackerSr != null && attackerSr.flipX
                 ? -1f
                 : 1f;
         }
 
+        Debug.Log(
+            "跳ね返し開始: " +
+            targetPlayer.name +
+            " / 横方向=" + dir
+        );
+
         StartCoroutine(
-            BouncePlayer(
-                targetPlayer,
-                targetRb,
-                dir
-            )
+            BouncePlayer(targetPlayer, targetRb, dir)
         );
     }
 
+    // 吹っ飛ばし処理
     IEnumerator BouncePlayer(
         Transform targetPlayer,
         Rigidbody2D targetRb,
@@ -112,12 +101,15 @@ public class PlayerBounce : MonoBehaviour
         if (targetRb == null)
             yield break;
 
+        // Rigidbody2Dの設定を保存
         RigidbodyConstraints2D originalConstraints =
             targetRb.constraints;
 
-        float originalGravity =
-            targetRb.gravityScale;
+        // X方向の固定を解除
+        targetRb.constraints &=
+            ~RigidbodyConstraints2D.FreezePositionX;
 
+        // 移動スクリプトを取得
         Player_test_con1 testPlayer1 =
             targetPlayer.GetComponentInChildren<Player_test_con1>();
 
@@ -130,6 +122,21 @@ public class PlayerBounce : MonoBehaviour
         Player2_con p2 =
             targetPlayer.GetComponentInChildren<Player2_con>();
 
+        // 元の有効状態を保存
+        bool test1Enabled =
+            testPlayer1 != null && testPlayer1.enabled;
+
+        bool test2Enabled =
+            testPlayer2 != null && testPlayer2.enabled;
+
+        // 元の操作ロック状態を保存
+        bool p1Lock = p1 != null && p1.lockControl;
+        bool p1Knockback = p1 != null && p1.knockback;
+
+        bool p2Lock = p2 != null && p2.lockControl;
+        bool p2Knockback = p2 != null && p2.knockback;
+
+        // 吹っ飛ばし中は移動スクリプトを停止
         if (testPlayer1 != null)
             testPlayer1.enabled = false;
 
@@ -148,59 +155,61 @@ public class PlayerBounce : MonoBehaviour
             p2.knockback = true;
         }
 
-        targetRb.gravityScale =
-            knockbackGravity;
+        // 以前の速度をリセット
+        targetRb.linearVelocity = Vector2.zero;
 
-        targetRb.linearVelocity =
-            new Vector2(
-                dir * knockbackX,
-                knockbackY
-            );
-
-        yield return new WaitForSeconds(
-            bounceTime
+        // 横方向＋上方向にAddForce
+        Vector2 force = new Vector2(
+            dir * horizontalForce,
+            verticalForce
         );
 
-        hitPlayers.Remove(targetRb);
-        bouncingPlayers.Remove(targetRb);
+        targetRb.linearVelocity =
+     new Vector2(
+         dir * horizontalForce,
+         verticalForce
+     );
 
+        Debug.Log(
+            "AddForce実行: " +
+            force +
+            " / 対象=" + targetPlayer.name
+        );
+
+        // 吹っ飛ばし中は操作停止
+        yield return new WaitForSeconds(bounceTime);
+
+        // Rigidbody設定を元に戻す
         if (targetRb != null)
         {
-            // 横速度をリセット
-            targetRb.linearVelocity =
-                new Vector2(
-                    0f,
-                    targetRb.linearVelocity.y
-                );
-
-            targetRb.constraints =
-                originalConstraints;
-
-            targetRb.gravityScale =
-                originalGravity;
+            targetRb.constraints = originalConstraints;
         }
 
+        // 移動スクリプトを元に戻す
         if (testPlayer1 != null)
-            testPlayer1.enabled = true;
+            testPlayer1.enabled = test1Enabled;
 
         if (testPlayer2 != null)
-            testPlayer2.enabled = true;
+            testPlayer2.enabled = test2Enabled;
 
+        // 操作ロックを元に戻す
         if (p1 != null)
         {
-            p1.knockback = false;
-            p1.lockControl = false;
+            p1.lockControl = p1Lock;
+            p1.knockback = p1Knockback;
         }
 
         if (p2 != null)
         {
-            p2.knockback = false;
-            p2.lockControl = false;
+            p2.lockControl = p2Lock;
+            p2.knockback = p2Knockback;
         }
+
+        Debug.Log("跳ね返し終了！");
     }
 
-    Transform FindPlayerRoot(
-        Transform current)
+    // 親階層からPlayerタグを探す
+    Transform FindPlayerRoot(Transform current)
     {
         while (current != null)
         {
