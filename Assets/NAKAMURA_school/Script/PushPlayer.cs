@@ -90,6 +90,13 @@ public class PlayerBounce : MonoBehaviour
                 : 1f;
         }
 
+        Debug.Log(
+            "跳ね返し開始 : " +
+            targetPlayer.name +
+            " dir=" +
+            dir
+        );
+
         StartCoroutine(
             BouncePlayer(
                 targetPlayer,
@@ -106,6 +113,9 @@ public class PlayerBounce : MonoBehaviour
     {
         if (targetRb == null)
             yield break;
+
+        RigidbodyConstraints2D originalConstraints =
+            targetRb.constraints;
 
         Player_test_con1 testPlayer1 =
             targetPlayer.GetComponentInChildren<Player_test_con1>();
@@ -127,9 +137,17 @@ public class PlayerBounce : MonoBehaviour
             testPlayer2 != null &&
             testPlayer2.enabled;
 
+        bool p1Lock =
+            p1 != null &&
+            p1.lockControl;
+
         bool p1Knockback =
             p1 != null &&
             p1.knockback;
+
+        bool p2Lock =
+            p2 != null &&
+            p2.lockControl;
 
         bool p2Knockback =
             p2 != null &&
@@ -143,40 +161,52 @@ public class PlayerBounce : MonoBehaviour
 
         if (p1 != null)
         {
+            p1.lockControl = true;
             p1.knockback = true;
         }
 
         if (p2 != null)
         {
+            p2.lockControl = true;
             p2.knockback = true;
         }
 
-        targetRb.linearVelocity =
+        targetRb.constraints &=
+            ~RigidbodyConstraints2D.FreezePositionX;
+
+        // AddForce前に速度初期化
+        targetRb.linearVelocity = Vector2.zero;
+
+        Vector2 force =
             new Vector2(
                 dir * horizontalForce,
                 verticalForce
             );
 
-        float timer = 0f;
+        targetRb.AddForce(
+            force,
+            ForceMode2D.Impulse
+        );
 
-        while (timer < bounceTime)
-        {
-            if (targetRb == null)
-                yield break;
+        Debug.Log(
+            "AddForce : " +
+            force +
+            " target=" +
+            targetPlayer.name
+        );
 
-            targetRb.linearVelocity =
-                new Vector2(
-                    dir * horizontalForce,
-                    targetRb.linearVelocity.y
-                );
-
-            timer += Time.fixedDeltaTime;
-
-            yield return new WaitForFixedUpdate();
-        }
+        yield return new WaitForSeconds(
+            bounceTime
+        );
 
         hitPlayers.Remove(targetRb);
         bouncingPlayers.Remove(targetRb);
+
+        if (targetRb != null)
+        {
+            targetRb.constraints =
+                originalConstraints;
+        }
 
         if (testPlayer1 != null)
             testPlayer1.enabled =
@@ -188,15 +218,26 @@ public class PlayerBounce : MonoBehaviour
 
         if (p1 != null)
         {
+            p1.lockControl =
+                p1Lock;
+
             p1.knockback =
                 p1Knockback;
         }
 
         if (p2 != null)
         {
+            p2.lockControl =
+                p2Lock;
+
             p2.knockback =
                 p2Knockback;
         }
+
+        Debug.Log(
+            "跳ね返し終了 : " +
+            targetPlayer.name
+        );
     }
 
     Transform FindPlayerRoot(

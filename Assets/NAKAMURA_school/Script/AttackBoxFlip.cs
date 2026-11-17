@@ -1,54 +1,42 @@
+
 using UnityEngine;
 
-public class AttackColliderFlip : MonoBehaviour
+public class AttackBoxFlip : MonoBehaviour
 {
-    [Header("向きを参照するオブジェクト")]
-    public Transform target;
+    [Header("攻撃するプレイヤー")]
+    public Player2_con player;
 
-    [Header("反転するCollider")]
-    public Collider2D attackCollider;
+    [Header("反転する当たり判定")]
+    public BoxCollider2D attackBox;
 
-    [Header("右向き位置")]
+    [Header("右向きの当たり判定位置")]
     public Vector2 rightOffset = new Vector2(1f, 0f);
 
-    [Header("左向き位置")]
+    [Header("左向きの当たり判定位置")]
     public Vector2 leftOffset = new Vector2(-1f, 0f);
 
     void Awake()
     {
-        if (attackCollider == null)
-            attackCollider = GetComponent<Collider2D>();
-
-        if (target == null)
-            target = transform.root;
+        if (attackBox == null)
+            attackBox = GetComponent<BoxCollider2D>();
     }
 
     void LateUpdate()
     {
-        if (target == null || attackCollider == null)
+        if (player == null || attackBox == null)
             return;
 
-        bool facingLeft = target.localScale.x < 0;
+        // P_MicroConsentと同じ向き判定
+        bool facingLeft = player.IsFacingLeft();
 
-        Vector2 offset = facingLeft ? leftOffset : rightOffset;
-
-        switch (attackCollider)
+        // 当たり判定の位置だけを変更
+        if (facingLeft)
         {
-            case BoxCollider2D box:
-                box.offset = offset;
-                break;
-
-            case CircleCollider2D circle:
-                circle.offset = offset;
-                break;
-
-            case CapsuleCollider2D capsule:
-                capsule.offset = offset;
-                break;
-
-            case PolygonCollider2D polygon:
-                polygon.offset = offset;
-                break;
+            attackBox.offset = leftOffset;
+        }
+        else
+        {
+            attackBox.offset = rightOffset;
         }
     }
 }

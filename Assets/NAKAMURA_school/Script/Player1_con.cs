@@ -1,3 +1,5 @@
+
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,19 +15,18 @@ public class Player1_con : MonoBehaviour
 
     [Header("SE")]
     public AudioClip dashSE;
+    [HideInInspector]
+    public bool knockback = false;
 
     private bool isAttacking = false;
     private float attackTimer = 0f;
     private bool airDashUsed = false;
 
+    // レンジ用操作ロック
     [HideInInspector]
     public bool lockControl = false;
 
-    [HideInInspector]
-    public bool knockback = false;
-
     public Gamepad myPad;
-
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private AudioSource audioSource;
@@ -50,6 +51,7 @@ public class Player1_con : MonoBehaviour
         }
     }
 
+    // Joycon.cs から1P用コントローラーを受け取る
     public void SetPad(Gamepad pad)
     {
         if (pad == null) return;
@@ -73,11 +75,23 @@ public class Player1_con : MonoBehaviour
         if (lockControl)
         {
             moveInput = 0f;
+
+            if (rb != null)
+            {
+                /*    rb.linearVelocity =
+                        new Vector2(
+                            0f,
+                            rb.linearVelocity.y
+                        );*/
+            }
+
             return;
         }
 
+        // 左スティック
         moveInput = myPad.leftStick.x.ReadValue();
 
+        // ジャンプ
         if (myPad.buttonSouth.wasPressedThisFrame && isGrounded)
         {
             rb.linearVelocity = new Vector2(
@@ -89,6 +103,35 @@ public class Player1_con : MonoBehaviour
             airDashUsed = false;
         }
 
+        // Bボタンで突進
+        /* if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
+         {
+             // 地上
+             if (isGrounded)
+             {
+                 isAttacking = true;
+                 attackTimer = dashTime;
+
+                 if (dashSE != null && audioSource != null)
+                 {
+                     audioSource.PlayOneShot(dashSE);
+                 }
+             }
+             // 空中は1回だけ
+             else if (!airDashUsed)
+             {
+                 isAttacking = true;
+                 attackTimer = dashTime;
+                 airDashUsed = true;
+
+                 if (dashSE != null && audioSource != null)
+                 {
+                     audioSource.PlayOneShot(dashSE);
+                 }
+             }
+         }*/
+
+        // 向き
         if (moveInput > 0.1f)
         {
             sr.flipX = false;
@@ -108,7 +151,6 @@ public class Player1_con : MonoBehaviour
     {
         knockback = false;
     }
-
     void FixedUpdate()
     {
         if (!joined || myPad == null)
@@ -118,8 +160,22 @@ public class Player1_con : MonoBehaviour
             return;
 
         if (knockback)
-            return;
+        {
+            Debug.Log("P1 knockback = TRUE");
 
+            knockback = false; // 強制解除
+
+            return;
+        }
+
+        /*void FixedUpdate()
+        {
+            if (!joined || myPad == null)
+            {
+                return;
+            }*/
+
+        // 突進中
         if (isAttacking)
         {
             attackTimer -= Time.fixedDeltaTime;
@@ -139,6 +195,7 @@ public class Player1_con : MonoBehaviour
             return;
         }
 
+        // 通常移動
         rb.linearVelocity = new Vector2(
             moveInput * moveSpeed,
             rb.linearVelocity.y
