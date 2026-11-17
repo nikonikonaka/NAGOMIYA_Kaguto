@@ -1288,7 +1288,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockbackX: 50
   knockbackY: 10
-  edgePower: 0.392
   knockbackGravity: 4
   bounceTime: 0.5
   bounceOnlyOnce: 1

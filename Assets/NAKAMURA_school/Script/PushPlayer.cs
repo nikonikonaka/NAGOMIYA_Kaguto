@@ -21,9 +21,14 @@ public class PlayerBounce : MonoBehaviour
     private HashSet<Rigidbody2D> hitPlayers =
         new HashSet<Rigidbody2D>();
 
+    // 現在吹っ飛び中のプレイヤー
+    private HashSet<Rigidbody2D> bouncingPlayers =
+        new HashSet<Rigidbody2D>();
+
     void OnEnable()
     {
         hitPlayers.Clear();
+        bouncingPlayers.Clear();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -56,20 +61,26 @@ public class PlayerBounce : MonoBehaviour
         if (targetRb.bodyType != RigidbodyType2D.Dynamic)
             return;
 
+        // 既に吹っ飛び中なら無視
+        if (bouncingPlayers.Contains(targetRb))
+            return;
+
         if (bounceOnlyOnce &&
             hitPlayers.Contains(targetRb))
             return;
 
         hitPlayers.Add(targetRb);
+        bouncingPlayers.Add(targetRb);
 
         float attackerX =
             myPlayer != null
             ? myPlayer.position.x
             : transform.position.x;
 
-        float dir = Mathf.Sign(
-            targetRb.position.x - attackerX
-        );
+        float dir =
+            Mathf.Sign(
+                targetRb.position.x - attackerX
+            );
 
         if (dir == 0f)
         {
@@ -119,9 +130,6 @@ public class PlayerBounce : MonoBehaviour
         Player2_con p2 =
             targetPlayer.GetComponentInChildren<Player2_con>();
 
-        targetRb.constraints &=
-            ~RigidbodyConstraints2D.FreezePositionX;
-
         if (testPlayer1 != null)
             testPlayer1.enabled = false;
 
@@ -140,11 +148,9 @@ public class PlayerBounce : MonoBehaviour
             p2.knockback = true;
         }
 
-        // ノックバック用重力
         targetRb.gravityScale =
             knockbackGravity;
 
-        // ノックバック
         targetRb.linearVelocity =
             new Vector2(
                 dir * knockbackX,
@@ -155,11 +161,18 @@ public class PlayerBounce : MonoBehaviour
             bounceTime
         );
 
-        // 再度当てられるようにする
         hitPlayers.Remove(targetRb);
+        bouncingPlayers.Remove(targetRb);
 
         if (targetRb != null)
         {
+            // 横速度をリセット
+            targetRb.linearVelocity =
+                new Vector2(
+                    0f,
+                    targetRb.linearVelocity.y
+                );
+
             targetRb.constraints =
                 originalConstraints;
 
@@ -173,7 +186,6 @@ public class PlayerBounce : MonoBehaviour
         if (testPlayer2 != null)
             testPlayer2.enabled = true;
 
-        // 確実に操作復帰
         if (p1 != null)
         {
             p1.knockback = false;
