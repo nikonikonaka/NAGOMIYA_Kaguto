@@ -2415,7 +2415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1611701433507976486, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
       propertyPath: verticalForce
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1611701433507976486, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
       propertyPath: bounceOnlyOnce
@@ -2423,7 +2423,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1611701433507976486, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
       propertyPath: horizontalForce
-      value: 2
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3834141399254896216, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
       propertyPath: MinDistance
