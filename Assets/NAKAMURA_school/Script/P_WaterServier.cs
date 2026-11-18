@@ -118,7 +118,6 @@ public class P_WaterServer : MonoBehaviour
             currentWater = 0;
         }
 
-        // êÖó âÊëúÇçXêVÇµÇƒï\é¶ÇµÇΩÇ‹Ç‹Ç…Ç∑ÇÈ
         UpdateTankImage();
 
         if (waterAnim != null)
@@ -138,11 +137,13 @@ public class P_WaterServer : MonoBehaviour
 
             SetFlip(
                 waterAnim,
-                left);
+                left
+            );
 
             waterAnim.SetActive(true);
         }
     }
+
     void EndAttack()
     {
         attacking = false;
@@ -161,13 +162,15 @@ public class P_WaterServer : MonoBehaviour
             (Vector2)transform.position +
             new Vector2(
                 attackOffset.x * attackDirection,
-                attackOffset.y);
+                attackOffset.y
+            );
 
         Collider2D[] hits =
             Physics2D.OverlapBoxAll(
                 center,
                 attackSize,
-                0f);
+                0f
+            );
 
         foreach (Collider2D hit in hits)
         {
@@ -195,7 +198,9 @@ public class P_WaterServer : MonoBehaviour
                     Mathf.Lerp(
                         minDamage,
                         maxDamage,
-                        ratio));
+                        ratio
+                    )
+                );
 
             hp.TakeDamage(damage);
 
@@ -219,7 +224,8 @@ public class P_WaterServer : MonoBehaviour
                 rb.linearVelocity =
                     new Vector2(
                         attackDirection * force,
-                        attackUpForce);
+                        attackUpForce
+                    );
             }
         }
     }
@@ -309,7 +315,6 @@ public class P_WaterServer : MonoBehaviour
     public void RefillWater()
     {
         currentWater = maxWater;
-
         UpdateTankImage();
     }
 
@@ -327,12 +332,14 @@ public class P_WaterServer : MonoBehaviour
             (Vector2)transform.position +
             new Vector2(
                 attackOffset.x * dir,
-                attackOffset.y);
+                attackOffset.y
+            );
 
         Gizmos.color = Color.cyan;
 
         Gizmos.DrawWireCube(
             center,
-            attackSize);
+            attackSize
+        );
     }
 }
