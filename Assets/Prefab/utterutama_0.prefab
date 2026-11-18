@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5324583347672759763}
   m_Layer: 0
   m_Name: utterutama_0
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -6360354347126825056, guid: 5f4500a2f7cd3e742af05acc2ed9521b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7176471}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  damage: 500
+  damage: 50
   lifeTime: 3
 --- !u!114 &5324583347672759763
 MonoBehaviour:

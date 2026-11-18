@@ -195,6 +195,7 @@ public class P_WaterServer : MonoBehaviour
             Player2_con targetP2 =
                 hit.GetComponentInParent<Player2_con>();
 
+
             if (
                 (myP1 != null && targetP1 == myP1) ||
                 (myP2 != null && targetP2 == myP2)
@@ -337,6 +338,17 @@ public class P_WaterServer : MonoBehaviour
         UpdateTankImage();
     }
 
+    public void AddWater(int amount)
+    {
+        currentWater += amount;
+
+        if (currentWater > maxWater)
+        {
+            currentWater = maxWater;
+        }
+
+        UpdateTankImage();
+    }
     void OnDrawGizmosSelected()
     {
         if (player == null)
