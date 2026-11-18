@@ -3,88 +3,96 @@ using UnityEngine.InputSystem;
 
 public class P_GunConFire : MonoBehaviour
 {
-    [Header("発射画像Prefab")]
+    [Header("弾")]
     public GameObject bulletPrefab;
 
-    [Header("発射位置")]
+    [Header("発射口")]
     public Transform shotPoint;
 
-    [Header("プレイヤー")]
-    public Player2_con player;
+    private Player1_con p1;
+    private Player2_con p2;
 
-    private bool canShoot = true;
+    private SpriteRenderer sr;
+
+    void Awake()
+    {
+        p1 = GetComponent<Player1_con>();
+        p2 = GetComponent<Player2_con>();
+
+        sr = GetComponent<SpriteRenderer>();
+    }
 
     void Update()
     {
-        if (player == null || player.myPad == null)
+        Gamepad pad = null;
+
+        if (p1 != null)
+        {
+            pad = p1.myPad;
+        }
+        else if (p2 != null)
+        {
+            pad = p2.myPad;
+        }
+
+        if (pad == null)
             return;
 
-        // 向き更新
-        UpdateDirection();
-
-        // Xボタンで発射
-        if (player.myPad.buttonWest.wasPressedThisFrame &&
-            canShoot)
+        if (pad.buttonWest.wasPressedThisFrame)
         {
             Shoot();
         }
     }
 
-    void UpdateDirection()
-    {
-        if (player == null)
-            return;
-
-        bool flip = player.IsFacingLeft();
-
-        if (shotPoint != null)
-        {
-            Vector3 pos = shotPoint.localPosition;
-
-            pos.x = flip
-                ? -Mathf.Abs(pos.x)
-                : Mathf.Abs(pos.x);
-
-            shotPoint.localPosition = pos;
-        }
-    }
-
-    public void Shoot()
+    void Shoot()
     {
         if (bulletPrefab == null)
             return;
 
         if (shotPoint == null)
-            return;
-
-        GameObject bullet =
-            Instantiate(
-                bulletPrefab,
-                shotPoint.position,
-                Quaternion.identity
-            );
-
-        float dir =
-            player != null && player.IsFacingLeft()
-            ? -1f
-            : 1f;
-
-        Projectile projectile =
-            bullet.GetComponent<Projectile>();
-
-        if (projectile != null)
         {
-            projectile.Initialize(
-                dir,
-                player.gameObject
-            );
+            Debug.LogWarning("shotPoint が未設定");
+            return;
         }
-        SpriteRenderer sr =
-            bullet.GetComponent<SpriteRenderer>();
+
+        bool faceLeft = false;
 
         if (sr != null)
         {
-            sr.flipX = dir < 0;
+            faceLeft = sr.flipX;
         }
+
+        GameObject bullet = Instantiate(
+            bulletPrefab,
+            shotPoint.position,
+            Quaternion.identity
+        );
+
+        float dir =
+            faceLeft ? -1f : 1f;
+
+        Projectile proj =
+            bullet.GetComponent<Projectile>();
+
+        if (proj != null)
+        {
+            proj.Initialize(
+                dir,
+                gameObject
+            );
+        }
+
+        SpriteRenderer bulletSr =
+            bullet.GetComponent<SpriteRenderer>();
+
+        if (bulletSr != null)
+        {
+            bulletSr.flipX = !faceLeft;
+        }
+
+        Debug.Log(
+            "Shoot " +
+            (faceLeft ? "LEFT" : "RIGHT")
+        );
     }
 }

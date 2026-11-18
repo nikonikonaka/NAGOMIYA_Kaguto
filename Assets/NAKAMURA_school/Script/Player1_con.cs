@@ -3,7 +3,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player1_con : MonoBehaviour
+public class Player1_con : MonoBehaviour, IPlayerController
 {
     public float moveSpeed = 5f;
     public float jumpPower = 7f;
@@ -34,6 +34,11 @@ public class Player1_con : MonoBehaviour
     private float moveInput;
     private bool isGrounded;
     private bool joined = false;
+
+    Gamepad IPlayerController.myPad
+    {
+        get { return myPad; }
+    }
 
     void Awake()
     {

@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.U2D;
 
 //2Pプレイヤーの移動・ジャンプ・攻撃を管理するクラス
-public class Player2_con : MonoBehaviour
+public class Player2_con : MonoBehaviour, IPlayerController
 {
     //移動速度
     public float moveSpeed = 5f;
@@ -41,6 +42,11 @@ public class Player2_con : MonoBehaviour
 
     private float moveInput;
     private bool isGrounded;
+
+    Gamepad IPlayerController.myPad
+    {
+        get { return myPad; }
+    }
 
     void Awake()
     {
