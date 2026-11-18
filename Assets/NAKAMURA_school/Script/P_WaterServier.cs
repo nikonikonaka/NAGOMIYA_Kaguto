@@ -118,7 +118,6 @@ public class P_WaterServer : MonoBehaviour
             currentWater = 0;
         }
 
-        // êÖó âÊëúÇçXêVÇµÇƒï\é¶ÇµÇΩÇ‹Ç‹Ç…Ç∑ÇÈ
         UpdateTankImage();
 
         if (waterAnim != null)
@@ -138,11 +137,13 @@ public class P_WaterServer : MonoBehaviour
 
             SetFlip(
                 waterAnim,
-                left);
+                left
+            );
 
             waterAnim.SetActive(true);
         }
     }
+
     void EndAttack()
     {
         attacking = false;
@@ -157,17 +158,22 @@ public class P_WaterServer : MonoBehaviour
 
     void CheckAttackHit()
     {
+     
+
+
         Vector2 center =
             (Vector2)transform.position +
             new Vector2(
                 attackOffset.x * attackDirection,
-                attackOffset.y);
+                attackOffset.y
+            );
 
         Collider2D[] hits =
             Physics2D.OverlapBoxAll(
                 center,
                 attackSize,
-                0f);
+                0f
+            );
 
         foreach (Collider2D hit in hits)
         {
@@ -177,9 +183,25 @@ public class P_WaterServer : MonoBehaviour
             if (hp == null)
                 continue;
 
-            if (hp.transform.root ==
-                player.transform.root)
+            Player1_con myP1 =
+                GetComponent<Player1_con>();
+
+            Player2_con myP2 =
+                GetComponent<Player2_con>();
+
+            Player1_con targetP1 =
+                hit.GetComponentInParent<Player1_con>();
+
+            Player2_con targetP2 =
+                hit.GetComponentInParent<Player2_con>();
+
+            if (
+                (myP1 != null && targetP1 == myP1) ||
+                (myP2 != null && targetP2 == myP2)
+            )
+            {
                 continue;
+            }
 
             if (hitPlayers.Contains(hp))
                 continue;
@@ -195,7 +217,9 @@ public class P_WaterServer : MonoBehaviour
                     Mathf.Lerp(
                         minDamage,
                         maxDamage,
-                        ratio));
+                        ratio
+                    )
+                );
 
             hp.TakeDamage(damage);
 
@@ -219,7 +243,8 @@ public class P_WaterServer : MonoBehaviour
                 rb.linearVelocity =
                     new Vector2(
                         attackDirection * force,
-                        attackUpForce);
+                        attackUpForce
+                    );
             }
         }
     }
@@ -309,7 +334,6 @@ public class P_WaterServer : MonoBehaviour
     public void RefillWater()
     {
         currentWater = maxWater;
-
         UpdateTankImage();
     }
 
@@ -327,12 +351,14 @@ public class P_WaterServer : MonoBehaviour
             (Vector2)transform.position +
             new Vector2(
                 attackOffset.x * dir,
-                attackOffset.y);
+                attackOffset.y
+            );
 
         Gizmos.color = Color.cyan;
 
         Gizmos.DrawWireCube(
             center,
-            attackSize);
+            attackSize
+        );
     }
 }

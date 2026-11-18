@@ -742,7 +742,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8597429736026469174}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7d609d8b5c8eea45bdc14d654438b0c, type: 3}
   m_Name: 
@@ -924,7 +924,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4189784926439163172, guid: 2853082b953a7834ca9677215381de3b, type: 3}
   shotPoint: {fileID: 7647487938340830339}
-  player: {fileID: 0}
 --- !u!114 &3574530110503182300
 MonoBehaviour:
   m_ObjectHideFlags: 0
