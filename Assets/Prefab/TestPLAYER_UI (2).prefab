@@ -1302,8 +1302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6401bbb8b999b9b419f94399b2a9ecc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 631288185897850375}
-  attackCollider: {fileID: 6678283729627033369}
+  player: {fileID: 7324337297019248683}
+  attackBox: {fileID: 6678283729627033369}
   rightOffset: {x: -4, y: 0}
   leftOffset: {x: 4, y: 0}
 --- !u!1 &6448167047354634819 stripped
