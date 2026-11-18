@@ -12,26 +12,27 @@ public class P_GunConFire : MonoBehaviour
     private Player1_con p1;
     private Player2_con p2;
 
+    private SpriteRenderer sr;
+
     void Awake()
     {
         p1 = GetComponent<Player1_con>();
         p2 = GetComponent<Player2_con>();
+
+        sr = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
         Gamepad pad = null;
-        bool faceLeft = false;
 
         if (p1 != null)
         {
             pad = p1.myPad;
-            faceLeft = p1.IsFacingLeft();
         }
         else if (p2 != null)
         {
             pad = p2.myPad;
-            faceLeft = p2.IsFacingLeft();
         }
 
         if (pad == null)
@@ -39,11 +40,11 @@ public class P_GunConFire : MonoBehaviour
 
         if (pad.buttonWest.wasPressedThisFrame)
         {
-            Shoot(faceLeft);
+            Shoot();
         }
     }
 
-    void Shoot(bool faceLeft)
+    void Shoot()
     {
         if (bulletPrefab == null)
             return;
@@ -54,15 +55,24 @@ public class P_GunConFire : MonoBehaviour
             return;
         }
 
+        bool faceLeft = false;
+
+        if (sr != null)
+        {
+            faceLeft = sr.flipX;
+        }
+
         GameObject bullet = Instantiate(
             bulletPrefab,
             shotPoint.position,
             Quaternion.identity
         );
 
-        float dir = faceLeft ? -1f : 1f;
+        float dir =
+            faceLeft ? -1f : 1f;
 
-        Projectile proj = bullet.GetComponent<Projectile>();
+        Projectile proj =
+            bullet.GetComponent<Projectile>();
 
         if (proj != null)
         {
@@ -72,17 +82,17 @@ public class P_GunConFire : MonoBehaviour
             );
         }
 
-        SpriteRenderer sr =
+        SpriteRenderer bulletSr =
             bullet.GetComponent<SpriteRenderer>();
 
-        if (sr != null)
+        if (bulletSr != null)
         {
-            sr.flipX = faceLeft;
+            bulletSr.flipX = !faceLeft;
         }
 
         Debug.Log(
-            $"Shoot: {(faceLeft ? "LEFT" : "RIGHT")} " +
-            $"Pos={shotPoint.position}"
+            "Shoot " +
+            (faceLeft ? "LEFT" : "RIGHT")
         );
     }
 }

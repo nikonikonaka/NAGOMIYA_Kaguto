@@ -2118,10 +2118,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestPLAYER_UI (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 595809735269427242, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 5173878393886306238}
     - target: {fileID: 626160943852321690, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
       propertyPath: m_Size.x
       value: 1.2228668
@@ -2139,16 +2135,8 @@ PrefabInstance:
       value: -0.8519327
       objectReference: {fileID: 0}
     - target: {fileID: 626160943852321690, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
-      propertyPath: m_Direction
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 626160943852321690, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
       propertyPath: m_IsTrigger
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1688073965107965929, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1908731993261981219, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
       propertyPath: knockbackY
@@ -2173,6 +2161,10 @@ PrefabInstance:
     - target: {fileID: 2652697791987746742, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 89.778
+      objectReference: {fileID: 0}
+    - target: {fileID: 3477781900215393467, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.6
       objectReference: {fileID: 0}
     - target: {fileID: 4118944349509646690, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
       propertyPath: m_LocalPosition.x

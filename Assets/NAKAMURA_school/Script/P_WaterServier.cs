@@ -158,6 +158,9 @@ public class P_WaterServer : MonoBehaviour
 
     void CheckAttackHit()
     {
+     
+
+
         Vector2 center =
             (Vector2)transform.position +
             new Vector2(
@@ -180,9 +183,25 @@ public class P_WaterServer : MonoBehaviour
             if (hp == null)
                 continue;
 
-            if (hp.transform.root ==
-                player.transform.root)
+            Player1_con myP1 =
+                GetComponent<Player1_con>();
+
+            Player2_con myP2 =
+                GetComponent<Player2_con>();
+
+            Player1_con targetP1 =
+                hit.GetComponentInParent<Player1_con>();
+
+            Player2_con targetP2 =
+                hit.GetComponentInParent<Player2_con>();
+
+            if (
+                (myP1 != null && targetP1 == myP1) ||
+                (myP2 != null && targetP2 == myP2)
+            )
+            {
                 continue;
+            }
 
             if (hitPlayers.Contains(hp))
                 continue;
