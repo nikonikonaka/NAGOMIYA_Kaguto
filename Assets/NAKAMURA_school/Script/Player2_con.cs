@@ -2,24 +2,24 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 //2Pプレイヤーの移動・ジャンプ・攻撃を管理するクラス
-
 public class Player2_con : MonoBehaviour
 {
     //移動速度
     public float moveSpeed = 5f;
+
     //ジャンプする力
     public float jumpPower = 7f;
 
-    
     [Header("攻撃")]
-    //突進速度
     public float dashSpeed = 6f;
-    //ジャンプ力
     public float dashTime = 1.0f;
     public int attackDamage = 10;
 
     [Header("SE")]
     public AudioClip dashSE;
+
+    [HideInInspector]
+    public bool knockback = false;
 
     private bool isAttacking = false;
     private float attackTimer = 0f;
@@ -31,11 +31,9 @@ public class Player2_con : MonoBehaviour
     [HideInInspector]
     public Gamepad myPad;
 
-    // レンジ用操作ロック
+    //操作ロック
     [HideInInspector]
     public bool lockControl = false;
-    [HideInInspector]
-    public bool knockback = false;
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -46,13 +44,11 @@ public class Player2_con : MonoBehaviour
 
     void Awake()
     {
-        //物理プログラムを入れる
         rb = GetComponent<Rigidbody2D>();
-        //絵のプラグラムを入れる
         sr = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
 
-        Debug.Log("[2P] Awake: " + gameObject.name);
+        Debug.Log("[2P] Awake : " + gameObject.name);
 
         if (rb != null)
         {
@@ -66,9 +62,10 @@ public class Player2_con : MonoBehaviour
         joined = true;
 
         Debug.Log(
-            "[2P] コントローラー割り当て: " +
+            "[2P] コントローラー割り当て : " +
             myPad.displayName +
-            " / ID=" + myPad.deviceId
+            " / ID=" +
+            myPad.deviceId
         );
     }
 
@@ -77,67 +74,40 @@ public class Player2_con : MonoBehaviour
         if (!joined || myPad == null)
             return;
 
-        //操作禁止
         if (lockControl)
         {
             moveInput = 0f;
-
-            if (rb != null)
-            {
-            /*    rb.linearVelocity =
-                    new Vector2(
-                        0f,
-                        rb.linearVelocity.y
-                    );*/
-            }
-
             return;
         }
 
-        moveInput = myPad.leftStick.x.ReadValue();
+        moveInput =
+            myPad.leftStick.x.ReadValue();
 
-        // ジャンプ
-        if (myPad.buttonSouth.wasPressedThisFrame && isGrounded)
+        //ジャンプ
+        if (
+            myPad.buttonSouth.wasPressedThisFrame &&
+            isGrounded
+        )
         {
-            rb.linearVelocity = new Vector2(
-                rb.linearVelocity.x,
-                jumpPower
-            );
+            rb.linearVelocity =
+                new Vector2(
+                    rb.linearVelocity.x,
+                    jumpPower
+                );
 
             isGrounded = false;
             airDashUsed = false;
         }
 
-        // Bボタンで突進
-       /*  if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
-        {
-            if (isGrounded)
-            {
-                isAttacking = true;
-                attackTimer = dashTime;
-
-                if (dashSE != null && audioSource != null)
-                {
-                    audioSource.PlayOneShot(dashSE);
-                }
-            }
-            else if (!airDashUsed)
-            {
-                isAttacking = true;
-                attackTimer = dashTime;
-                airDashUsed = true;
-
-                if (dashSE != null && audioSource != null)
-                {
-                    audioSource.PlayOneShot(dashSE);
-                }
-            }
-        }*/
-
+        //向き
         if (moveInput > 0.1f)
+        {
             sr.flipX = false;
+        }
         else if (moveInput < -0.1f)
+        {
             sr.flipX = true;
+        }
     }
 
     public bool IsFacingLeft()
@@ -149,6 +119,7 @@ public class Player2_con : MonoBehaviour
     {
         knockback = false;
     }
+
     void FixedUpdate()
     {
         if (!joined || myPad == null)
@@ -157,19 +128,29 @@ public class Player2_con : MonoBehaviour
         if (lockControl)
             return;
 
+        //ノックバック中
         if (knockback)
-            return;
+        {
+            Debug.Log("[2P] KnockBack");
 
+            knockback = false;
+
+            return;
+        }
+
+        //突進中
         if (isAttacking)
         {
             attackTimer -= Time.fixedDeltaTime;
 
-            float dir = sr.flipX ? -1f : 1f;
+            float dir =
+                sr.flipX ? -1f : 1f;
 
-            rb.linearVelocity = new Vector2(
-                dir * dashSpeed,
-                rb.linearVelocity.y
-            );
+            rb.linearVelocity =
+                new Vector2(
+                    dir * dashSpeed,
+                    rb.linearVelocity.y
+                );
 
             if (attackTimer <= 0f)
             {
@@ -179,10 +160,12 @@ public class Player2_con : MonoBehaviour
             return;
         }
 
-        rb.linearVelocity = new Vector2(
-            moveInput * moveSpeed,
-            rb.linearVelocity.y
-        );
+        //通常移動
+        rb.linearVelocity =
+            new Vector2(
+                moveInput * moveSpeed,
+                rb.linearVelocity.y
+            );
     }
 
     void OnCollisionExit2D(Collision2D col)
@@ -212,7 +195,6 @@ public class Player2_con : MonoBehaviour
     {
         return isGrounded;
     }
-
 }
 /*using UnityEngine;  //2026 10 19  
 using UnityEngine.InputSystem;

@@ -118,7 +118,8 @@ public class P_WaterServer : MonoBehaviour
             currentWater = 0;
         }
 
-        HideAllTankImages();
+        // …—Ê‰æ‘œ‚ğXV‚µ‚Ä•\¦‚µ‚½‚Ü‚Ü‚É‚·‚é
+        UpdateTankImage();
 
         if (waterAnim != null)
         {
@@ -126,9 +127,9 @@ public class P_WaterServer : MonoBehaviour
                 waterAnim.transform.localPosition;
 
             pos.x =
-              left
-              ? Mathf.Abs(waterOffset.x)
-              : -Mathf.Abs(waterOffset.x);
+                left
+                ? Mathf.Abs(waterOffset.x)
+                : -Mathf.Abs(waterOffset.x);
 
             pos.y = waterOffset.y;
 
@@ -142,7 +143,6 @@ public class P_WaterServer : MonoBehaviour
             waterAnim.SetActive(true);
         }
     }
-
     void EndAttack()
     {
         attacking = false;

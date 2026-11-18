@@ -104,32 +104,32 @@ public class Player1_con : MonoBehaviour
         }
 
         // Bボタンで突進
-       /* if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
-        {
-            // 地上
-            if (isGrounded)
-            {
-                isAttacking = true;
-                attackTimer = dashTime;
+        /* if (myPad.buttonEast.wasPressedThisFrame && !isAttacking)
+         {
+             // 地上
+             if (isGrounded)
+             {
+                 isAttacking = true;
+                 attackTimer = dashTime;
 
-                if (dashSE != null && audioSource != null)
-                {
-                    audioSource.PlayOneShot(dashSE);
-                }
-            }
-            // 空中は1回だけ
-            else if (!airDashUsed)
-            {
-                isAttacking = true;
-                attackTimer = dashTime;
-                airDashUsed = true;
+                 if (dashSE != null && audioSource != null)
+                 {
+                     audioSource.PlayOneShot(dashSE);
+                 }
+             }
+             // 空中は1回だけ
+             else if (!airDashUsed)
+             {
+                 isAttacking = true;
+                 attackTimer = dashTime;
+                 airDashUsed = true;
 
-                if (dashSE != null && audioSource != null)
-                {
-                    audioSource.PlayOneShot(dashSE);
-                }
-            }
-        }*/
+                 if (dashSE != null && audioSource != null)
+                 {
+                     audioSource.PlayOneShot(dashSE);
+                 }
+             }
+         }*/
 
         // 向き
         if (moveInput > 0.1f)
@@ -160,7 +160,13 @@ public class Player1_con : MonoBehaviour
             return;
 
         if (knockback)
+        {
+            Debug.Log("P1 knockback = TRUE");
+
+            knockback = false; // 強制解除
+
             return;
+        }
 
         /*void FixedUpdate()
         {

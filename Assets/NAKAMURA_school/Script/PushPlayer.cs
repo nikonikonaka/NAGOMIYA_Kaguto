@@ -4,16 +4,13 @@ using System.Collections.Generic;
 
 public class PlayerBounce : MonoBehaviour
 {
-    [Header("吹っ飛び設定")]
-    public float knockbackX = 30f;
+    [Header("跳ね返す力")]
+    public float horizontalForce = 15f;
 
-    public float knockbackY = 4f;
-
-    [Header("吹っ飛び中の重力")]
-    public float knockbackGravity = 5f;
+    public float verticalForce = 10f;
 
     [Header("吹っ飛ばし時間")]
-    public float bounceTime = 0.5f;
+    public float bounceTime = 0.4f;
 
     [Header("設定")]
     public bool bounceOnlyOnce = true;
@@ -21,7 +18,6 @@ public class PlayerBounce : MonoBehaviour
     private HashSet<Rigidbody2D> hitPlayers =
         new HashSet<Rigidbody2D>();
 
-    // 現在吹っ飛び中のプレイヤー
     private HashSet<Rigidbody2D> bouncingPlayers =
         new HashSet<Rigidbody2D>();
 
@@ -61,7 +57,6 @@ public class PlayerBounce : MonoBehaviour
         if (targetRb.bodyType != RigidbodyType2D.Dynamic)
             return;
 
-        // 既に吹っ飛び中なら無視
         if (bouncingPlayers.Contains(targetRb))
             return;
 
@@ -95,6 +90,13 @@ public class PlayerBounce : MonoBehaviour
                 : 1f;
         }
 
+        Debug.Log(
+            "跳ね返し開始 : " +
+            targetPlayer.name +
+            " dir=" +
+            dir
+        );
+
         StartCoroutine(
             BouncePlayer(
                 targetPlayer,
@@ -115,9 +117,6 @@ public class PlayerBounce : MonoBehaviour
         RigidbodyConstraints2D originalConstraints =
             targetRb.constraints;
 
-        float originalGravity =
-            targetRb.gravityScale;
-
         Player_test_con1 testPlayer1 =
             targetPlayer.GetComponentInChildren<Player_test_con1>();
 
@@ -129,6 +128,30 @@ public class PlayerBounce : MonoBehaviour
 
         Player2_con p2 =
             targetPlayer.GetComponentInChildren<Player2_con>();
+
+        bool test1Enabled =
+            testPlayer1 != null &&
+            testPlayer1.enabled;
+
+        bool test2Enabled =
+            testPlayer2 != null &&
+            testPlayer2.enabled;
+
+        bool p1Lock =
+            p1 != null &&
+            p1.lockControl;
+
+        bool p1Knockback =
+            p1 != null &&
+            p1.knockback;
+
+        bool p2Lock =
+            p2 != null &&
+            p2.lockControl;
+
+        bool p2Knockback =
+            p2 != null &&
+            p2.knockback;
 
         if (testPlayer1 != null)
             testPlayer1.enabled = false;
@@ -148,14 +171,29 @@ public class PlayerBounce : MonoBehaviour
             p2.knockback = true;
         }
 
-        targetRb.gravityScale =
-            knockbackGravity;
+        targetRb.constraints &=
+            ~RigidbodyConstraints2D.FreezePositionX;
 
-        targetRb.linearVelocity =
+        // AddForce前に速度初期化
+        targetRb.linearVelocity = Vector2.zero;
+
+        Vector2 force =
             new Vector2(
-                dir * knockbackX,
-                knockbackY
+                dir * horizontalForce,
+                verticalForce
             );
+
+        targetRb.AddForce(
+            force,
+            ForceMode2D.Impulse
+        );
+
+        Debug.Log(
+            "AddForce : " +
+            force +
+            " target=" +
+            targetPlayer.name
+        );
 
         yield return new WaitForSeconds(
             bounceTime
@@ -166,37 +204,40 @@ public class PlayerBounce : MonoBehaviour
 
         if (targetRb != null)
         {
-            // 横速度をリセット
-            targetRb.linearVelocity =
-                new Vector2(
-                    0f,
-                    targetRb.linearVelocity.y
-                );
-
             targetRb.constraints =
                 originalConstraints;
-
-            targetRb.gravityScale =
-                originalGravity;
         }
 
         if (testPlayer1 != null)
-            testPlayer1.enabled = true;
+            testPlayer1.enabled =
+                test1Enabled;
 
         if (testPlayer2 != null)
-            testPlayer2.enabled = true;
+            testPlayer2.enabled =
+                test2Enabled;
 
         if (p1 != null)
         {
-            p1.knockback = false;
-            p1.lockControl = false;
+            p1.lockControl =
+                p1Lock;
+
+            p1.knockback =
+                p1Knockback;
         }
 
         if (p2 != null)
         {
-            p2.knockback = false;
-            p2.lockControl = false;
+            p2.lockControl =
+                p2Lock;
+
+            p2.knockback =
+                p2Knockback;
         }
+
+        Debug.Log(
+            "跳ね返し終了 : " +
+            targetPlayer.name
+        );
     }
 
     Transform FindPlayerRoot(

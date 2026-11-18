@@ -592,8 +592,10 @@ MonoBehaviour:
   characterPrefabs:
   - {fileID: 8003463387337817301, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
   - {fileID: 8597429736026469174, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
+  - {fileID: 4461147222300892806, guid: 6453388f803d96e4383c4ae934ed6810, type: 3}
   player1PreviewPoint: {fileID: 2142538999}
   player2PreviewPoint: {fileID: 593044177}
+  battleSceneName: scene_10_15_kansei
 --- !u!4 &938581445
 Transform:
   m_ObjectHideFlags: 0
@@ -638,8 +640,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a069f279fa5b3a4192c894e5994347c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 0}
-  player2: {fileID: 0}
 --- !u!4 &1172524464
 Transform:
   m_ObjectHideFlags: 0
