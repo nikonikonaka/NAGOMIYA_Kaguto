@@ -33,8 +33,7 @@ public class TitleManager : MonoBehaviour
     // ゲーム終了
     public void GameQuit()
     {
-        Debug.Log("ゲームを終了します");
-
+        Debug.Log("ゲーム終了！");
         Application.Quit();
     }
 }
