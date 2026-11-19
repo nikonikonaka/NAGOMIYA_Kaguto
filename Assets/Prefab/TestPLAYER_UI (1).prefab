@@ -488,7 +488,7 @@ MonoBehaviour:
   screwPowerX: 5
   screwPowerY: -1
   screwTime: 1
-  screwDamage: 800
+  screwDamage: 400
   spinSpeed: 1080
 --- !u!1001 &21286910023069116
 PrefabInstance:

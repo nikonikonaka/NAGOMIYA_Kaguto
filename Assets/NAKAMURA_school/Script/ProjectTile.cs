@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [Header("弾設定")]
     public float speed = 10f;
     public int damage = 20;
     public float lifeTime = 3f;
+
+    [Header("発射クールタイム")]
+    public float coolTime = 1.0f;   // インスペクターで変更可能
 
     private float dir = 1f;
     private GameObject owner;
@@ -31,8 +35,7 @@ public class Projectile : MonoBehaviour
 
         if (col.CompareTag("Player"))
         {
-            Player_Health hp =
-                col.GetComponent<Player_Health>();
+            Player_Health hp = col.GetComponent<Player_Health>();
 
             if (hp != null)
             {
