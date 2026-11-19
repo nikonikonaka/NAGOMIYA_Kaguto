@@ -151,7 +151,7 @@ MonoBehaviour:
   speed: 10
   damage: 400
   lifeTime: 3
-  coolTime: 3
+  coolTime: 100
 --- !u!114 &5324583347672759763
 MonoBehaviour:
   m_ObjectHideFlags: 0
