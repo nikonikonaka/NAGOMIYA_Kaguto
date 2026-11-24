@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  damage: 100
+  damage: 200
   lifeTime: 3
   coolTime: 100
 --- !u!114 &5324583347672759763

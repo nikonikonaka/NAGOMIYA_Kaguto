@@ -33,6 +33,12 @@ public class Projectile : MonoBehaviour
         if (col.gameObject == owner)
             return;
 
+        // ÉKÅ[ÉhÇÕñ≥éã
+        if (col.transform.root.gameObject == owner)
+            return;
+
+        //--------------
+
         if (col.CompareTag("Player"))
         {
             Player_Health hp = col.GetComponent<Player_Health>();

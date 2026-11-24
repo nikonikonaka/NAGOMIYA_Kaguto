@@ -957,7 +957,7 @@ MonoBehaviour:
   characterPrefabs:
   - {fileID: 8003463387337817301, guid: 152bc290ade44a44b92545d4ea2c49b6, type: 3}
   - {fileID: 8597429736026469174, guid: 0a4d695857ccec5458f1580c99def8c5, type: 3}
-  - {fileID: 47386695574436773, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
+  - {fileID: 4013479863258977812, guid: d8ab7010da558b2478ed91445f22f109, type: 3}
   player1PreviewPoint: {fileID: 2142538999}
   player2PreviewPoint: {fileID: 593044177}
   battleSceneName: scene_10_15_kansei

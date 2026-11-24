@@ -944,7 +944,7 @@ MonoBehaviour:
   consentAnimator: {fileID: 5204786852556423019}
   attackRadius: 2
   damage: 1500
-  attackForce: 5
+  attackForce: 3
   launchY: 3
   knockbackTime: 0.3
 --- !u!114 &8091690795329792076
