@@ -1,3 +1,5 @@
+using System.Linq;
+using UnityEditor.U2D.Animation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,16 +21,11 @@ public class Player_Health : MonoBehaviour
     [Range(0f, 1f)]
     public float reduceRate = 0.5f;
 
-    private static bool initialized = false;
+ 
 
     void Start()
     {
-        if (!initialized)
-        {
-            currentHealth = maxHealth;
-            initialized = true;
-        }
-
+        currentHealth = maxHealth;
         UpdateHealthBar();
     }
 
@@ -93,17 +90,38 @@ public class Player_Health : MonoBehaviour
     {
         Debug.Log(gameObject.name + " KO!");
 
-        Player1_con p1 =
+        Player1_con p1p =
             GetComponent<Player1_con>();
 
-        if (p1 != null)
-            p1.enabled = false;
+        if (p1p != null)
+            p1p.enabled = false;
 
-        Player2_con p2 =
+        Player2_con p2p =
             GetComponent<Player2_con>();
 
-        if (p2 != null)
-            p2.enabled = false;
+        if (p2p != null)
+            p2p.enabled = false;
+
+        if (GetComponent<Player1_con>() != null)
+        {
+            CharacterData data =
+                FindObjectsOfType<CharacterData>()
+                .First(x => x.gameObject != gameObject);
+
+            GameResultData.winnerSprite =
+                data.resultSprite;
+        }
+        else if (GetComponent<Player2_con>() != null)
+        {
+            CharacterData data =
+                FindObjectsOfType<CharacterData>()
+                .First(x => x.gameObject != gameObject);
+
+            GameResultData.winnerSprite =
+                data.resultSprite;
+        }
+
+        maxHealth = 10000;
 
         SceneManager.LoadScene("Result");
     }

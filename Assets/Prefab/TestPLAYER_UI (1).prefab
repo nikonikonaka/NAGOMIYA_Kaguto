@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 4908990701200151566}
   - component: {fileID: 3506525533373145731}
   - component: {fileID: 1239580833917401798}
+  - component: {fileID: 1244572023128595271}
   m_Layer: 0
   m_Name: TestPLAYER_UI (1)
   m_TagString: Player
@@ -338,6 +339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10000
   healthBar: {fileID: 0}
+  damageReduce: 0
+  reduceRate: 0.5
 --- !u!114 &3932788267528639510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,6 +493,19 @@ MonoBehaviour:
   screwTime: 1
   screwDamage: 400
   spinSpeed: 1080
+--- !u!114 &1244572023128595271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8003463387337817301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2568ff578d8dd7444a4263111d69c189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resultSprite: {fileID: 5023832032923505631, guid: 39613489a290e59408c7dc03346369ae, type: 3}
 --- !u!1001 &21286910023069116
 PrefabInstance:
   m_ObjectHideFlags: 0

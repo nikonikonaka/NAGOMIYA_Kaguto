@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 8018076467099214565}
   - component: {fileID: 8063838220790953644}
   - component: {fileID: 6791380294626688330}
+  - component: {fileID: 2548148049734442072}
   m_Layer: 0
   m_Name: TestPLAYER_UI (3)
   m_TagString: Player
@@ -477,6 +478,19 @@ MonoBehaviour:
   auraObject: {fileID: 7119042444443993398}
   maxAura: 10
   waterPerCharge: 20
+--- !u!114 &2548148049734442072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47386695574436773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2568ff578d8dd7444a4263111d69c189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resultSprite: {fileID: -2699131654758985054, guid: 820c2dc5ba908c844a97a29d89bf524c, type: 3}
 --- !u!1 &1642046766520087759
 GameObject:
   m_ObjectHideFlags: 0
