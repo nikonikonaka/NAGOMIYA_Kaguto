@@ -4,7 +4,8 @@ using UnityEngine;
 public class AttackBoxFlip : MonoBehaviour
 {
     [Header("攻撃するプレイヤー")]
-    public Player2_con player;
+    public Player1_con player1;
+    public Player2_con player2;
 
     [Header("反転する当たり判定")]
     public BoxCollider2D attackBox;
@@ -23,11 +24,11 @@ public class AttackBoxFlip : MonoBehaviour
 
     void LateUpdate()
     {
-        if (player == null || attackBox == null)
+        if (player1 == null || attackBox == null || player2 == null || attackBox == null)
             return;
 
         // P_MicroConsentと同じ向き判定
-        bool facingLeft = player.IsFacingLeft();
+        bool facingLeft = player1.IsFacingLeft();
 
         // 当たり判定の位置だけを変更
         if (facingLeft)
