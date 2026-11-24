@@ -525,6 +525,7 @@ GameObject:
   - component: {fileID: 3574530110503182300}
   - component: {fileID: 8091690795329792076}
   - component: {fileID: 7324337297019248683}
+  - component: {fileID: 7547357987431331762}
   m_Layer: 0
   m_Name: TestPLAYER_UI (2)
   m_TagString: Player
@@ -722,6 +723,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10000
   healthBar: {fileID: 0}
+  damageReduce: 0
+  reduceRate: 0.5
 --- !u!114 &6841712435415945796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,6 +988,19 @@ MonoBehaviour:
   knockback: 0
   joined: 0
   lockControl: 0
+--- !u!114 &7547357987431331762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8597429736026469174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2568ff578d8dd7444a4263111d69c189, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resultSprite: {fileID: 21300000, guid: c13d1149c9f54a34eb79ed4ad92dd00b, type: 3}
 --- !u!1001 &5854788338218425315
 PrefabInstance:
   m_ObjectHideFlags: 0
