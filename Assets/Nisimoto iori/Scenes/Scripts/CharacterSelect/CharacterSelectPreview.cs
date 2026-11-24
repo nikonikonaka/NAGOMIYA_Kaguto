@@ -244,4 +244,16 @@ public class CharacterSelectPreview : MonoBehaviour
 
         SceneManager.LoadScene(battleSceneName);
     }
+    /* void ShowStageSelect()
+     {
+         if (stageSelectPanel != null)
+         {
+             stageSelectPanel.SetActive(true);
+             Debug.Log("ステージセレクト開始！");
+         }
+         else
+         {
+             Debug.LogError("StageSelectPanelが登録されていません！");
+         }
+     }*/
 }
