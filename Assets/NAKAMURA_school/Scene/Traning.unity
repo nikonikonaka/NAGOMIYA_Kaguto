@@ -160,6 +160,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7119042444443993398, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
   m_PrefabInstance: {fileID: 8274601579435074502}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &193029824 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5151782960946521549, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
+  m_PrefabInstance: {fileID: 8274601579435074502}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &299292135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,7 +1107,7 @@ GameObject:
   - component: {fileID: 1182662701}
   - component: {fileID: 1182662703}
   - component: {fileID: 1182662704}
-  m_Layer: 4
+  m_Layer: 0
   m_Name: Guard
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -2274,6 +2279,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 3477781900215393467, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.34
+      objectReference: {fileID: 0}
     - target: {fileID: 4118944349509646690, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.74
@@ -2368,6 +2377,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 47386695574436773, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8274601579435074521}
+    - targetCorrespondingSourceObject: {fileID: 5151782960946521549, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8274601579435074505}
   m_SourcePrefab: {fileID: 100100000, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
 --- !u!4 &8274601579435074503 stripped
 Transform:
@@ -2379,6 +2391,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 47386695574436773, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}
   m_PrefabInstance: {fileID: 8274601579435074502}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8274601579435074505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193029824}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6401bbb8b999b9b419f94399b2a9ecc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  attackBox: {fileID: 0}
+  rightOffset: {x: 1, y: 0}
+  leftOffset: {x: -1, y: 0}
 --- !u!4 &8274601579435074506 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4118944349509646690, guid: 48b10883727a90a44a53a6eaf5425f91, type: 3}

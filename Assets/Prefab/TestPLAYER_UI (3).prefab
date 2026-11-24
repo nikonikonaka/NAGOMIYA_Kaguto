@@ -51,8 +51,8 @@ Transform:
   - {fileID: 240010970427429504}
   - {fileID: 8017721634334843805}
   - {fileID: 6988848618661859061}
-  - {fileID: 3477781900215393467}
   - {fileID: 7660332813051511068}
+  - {fileID: 3477781900215393467}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5781026645559302827
@@ -242,6 +242,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10000
   healthBar: {fileID: 0}
+  damageReduce: 0
+  reduceRate: 0.5
 --- !u!114 &3524947868718187770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1233,8 +1235,8 @@ Transform:
   m_GameObject: {fileID: 5151782960946521549}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.6, y: -1.5, z: 0.0637106}
-  m_LocalScale: {x: -4.914894, y: 5.988943, z: 1}
+  m_LocalPosition: {x: 5.2933383, y: -1.5000001, z: 0.0637106}
+  m_LocalScale: {x: -4.9148946, y: 5.988943, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4118944349509646690}
