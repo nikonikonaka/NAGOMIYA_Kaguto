@@ -141,6 +141,18 @@ public class Player2_con : MonoBehaviour, IPlayerController
         if (!joined || myPad == null)
             return;
 
+        //ノックバック中
+        if (knockback)
+        {
+            Debug.Log("[2P] KnockBack");
+
+            lockControl = true;
+            lockTimer = 0.5f;
+            knockback = false;
+
+            return;
+        }
+
         if (lockControl)
         {
             Debug.Log("P1 lockControl = TRUE");
@@ -148,15 +160,7 @@ public class Player2_con : MonoBehaviour, IPlayerController
         }
 
 
-        //ノックバック中
-        if (knockback)
-        {
-            Debug.Log("[2P] KnockBack");
-
-            knockback = false;
-
-            return;
-        }
+  
 
         //突進中
         if (isAttacking)
@@ -215,6 +219,13 @@ public class Player2_con : MonoBehaviour, IPlayerController
     public bool IsGrounded()
     {
         return isGrounded;
+    }
+
+    public void StartLock(float time)
+    {
+        lockControl = true;
+        lockTimer = time;
+        moveInput = 0f;
     }
 }
 /*using UnityEngine;  //2026 10 19  

@@ -25,6 +25,7 @@ public class Player1_con : MonoBehaviour, IPlayerController
     // レンジ用操作ロック
     [HideInInspector]
     public bool lockControl = false;
+    private float lockTimer = 0.5f;
 
     public Gamepad myPad;
     private Rigidbody2D rb;
@@ -77,17 +78,16 @@ public class Player1_con : MonoBehaviour, IPlayerController
         if (!joined || myPad == null)
             return;
 
+
         if (lockControl)
         {
+            lockTimer -= Time.deltaTime;
             moveInput = 0f;
 
-            if (rb != null)
+            if (lockTimer <= 0f)
             {
-                /*    rb.linearVelocity =
-                        new Vector2(
-                            0f,
-                            rb.linearVelocity.y
-                        );*/
+                lockControl = false;
+                lockTimer = 0f;
             }
 
             return;
@@ -161,6 +161,17 @@ public class Player1_con : MonoBehaviour, IPlayerController
         if (!joined || myPad == null)
             return;
 
+        if (knockback)
+        {
+            Debug.Log("P1 knockback = TRUE");
+
+            lockControl = true;
+            lockTimer = 0.5f;
+            knockback = false; // 強制解除
+
+            return;
+        }
+
         if (lockControl)
         {
             Debug.Log("P1 lockControl = TRUE");
@@ -168,14 +179,7 @@ public class Player1_con : MonoBehaviour, IPlayerController
         }
 
 
-        if (knockback)
-        {
-            Debug.Log("P1 knockback = TRUE");
-
-            knockback = false; // 強制解除
-
-            return;
-        }
+      
 
         /*void FixedUpdate()
         {
@@ -238,5 +242,12 @@ public class Player1_con : MonoBehaviour, IPlayerController
     public bool IsGrounded()
     {
         return isGrounded;
+    }
+
+    public void StartLock(float time)
+    {
+        lockControl = true;
+        lockTimer = time;
+        moveInput = 0f;
     }
 }

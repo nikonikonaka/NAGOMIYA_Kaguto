@@ -20,6 +20,7 @@ public class PlayerBounce : MonoBehaviour
 
     private HashSet<Rigidbody2D> bouncingPlayers =
         new HashSet<Rigidbody2D>();
+    private float time;
 
     void OnEnable()
     {
@@ -143,13 +144,15 @@ public class PlayerBounce : MonoBehaviour
 
         if (p1 != null)
         {
-            p1.lockControl = true;
+            time = 1.0f;
+            p1.StartLock(time);
             p1.knockback = true;
         }
 
         if (p2 != null)
         {
-            p2.lockControl = true;
+            time = 0.8f;
+            p2.StartLock(time);
             p2.knockback = true;
         }
 
