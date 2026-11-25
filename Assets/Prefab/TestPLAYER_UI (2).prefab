@@ -1317,7 +1317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6401bbb8b999b9b419f94399b2a9ecc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7324337297019248683}
+  player1: {fileID: 0}
+  player2: {fileID: 0}
   attackBox: {fileID: 6678283729627033369}
   rightOffset: {x: -4, y: 0}
   leftOffset: {x: 4, y: 0}
