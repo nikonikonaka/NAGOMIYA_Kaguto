@@ -35,6 +35,8 @@ public class Player2_con : MonoBehaviour, IPlayerController
     //操作ロック
     [HideInInspector]
     public bool lockControl = false;
+    private float lockTimer = 0.5f;
+
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -82,7 +84,15 @@ public class Player2_con : MonoBehaviour, IPlayerController
 
         if (lockControl)
         {
+            lockTimer -= Time.deltaTime;
             moveInput = 0f;
+
+            if (lockTimer <= 0f)
+            {
+                lockControl = false;
+                lockTimer = 0f;
+            }
+
             return;
         }
 
@@ -132,7 +142,11 @@ public class Player2_con : MonoBehaviour, IPlayerController
             return;
 
         if (lockControl)
+        {
+            Debug.Log("P1 lockControl = TRUE");
             return;
+        }
+
 
         //ノックバック中
         if (knockback)
@@ -190,6 +204,7 @@ public class Player2_con : MonoBehaviour, IPlayerController
             {
                 isGrounded = true;
                 airDashUsed = false;
+            //    lockControl = false;
                 return;
             }
         }

@@ -162,7 +162,11 @@ public class Player1_con : MonoBehaviour, IPlayerController
             return;
 
         if (lockControl)
+        {
+            Debug.Log("P1 lockControl = TRUE");
             return;
+        }
+
 
         if (knockback)
         {
@@ -223,6 +227,7 @@ public class Player1_con : MonoBehaviour, IPlayerController
             {
                 isGrounded = true;
                 airDashUsed = false;
+               // lockControl = false;
                 return;
             }
         }

@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 3506525533373145731}
   - component: {fileID: 1239580833917401798}
   - component: {fileID: 1244572023128595271}
+  - component: {fileID: 4249895005377382554}
   m_Layer: 0
   m_Name: TestPLAYER_UI (1)
   m_TagString: Player
@@ -348,7 +349,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8003463387337817301}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da94efa42e1b80145969a28767d5bcd3, type: 3}
   m_Name: 
@@ -486,12 +487,12 @@ MonoBehaviour:
   damage: 120
   baseSpeed: 15
   auraSpeed: 8
-  maxAura: 20
+  maxAura: 10
   auraResetTime: 10
   screwPowerX: 5
   screwPowerY: -1
   screwTime: 1
-  screwDamage: 400
+  screwDamage: 200
   spinSpeed: 1080
 --- !u!114 &1244572023128595271
 MonoBehaviour:
@@ -506,6 +507,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultSprite: {fileID: 5023832032923505631, guid: 39613489a290e59408c7dc03346369ae, type: 3}
+--- !u!114 &4249895005377382554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8003463387337817301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90adb01b6c51b442a109196ff16c505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &21286910023069116
 PrefabInstance:
   m_ObjectHideFlags: 0
