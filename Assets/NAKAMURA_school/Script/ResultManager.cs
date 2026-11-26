@@ -9,5 +9,6 @@ public class ResultManager : MonoBehaviour
     {
         winnerImage.sprite =
             GameResultData.winnerSprite;
+        winnerImage.preserveAspect = true;
     }
 }

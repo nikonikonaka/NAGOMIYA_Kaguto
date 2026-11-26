@@ -20,6 +20,7 @@ public class PlayerBounce : MonoBehaviour
 
     private HashSet<Rigidbody2D> bouncingPlayers =
         new HashSet<Rigidbody2D>();
+    private float time;
 
     void OnEnable()
     {
@@ -107,6 +108,124 @@ public class PlayerBounce : MonoBehaviour
     }
 
     IEnumerator BouncePlayer(
+    Transform targetPlayer,
+    Rigidbody2D targetRb,
+    float dir)
+    {
+        if (targetRb == null)
+            yield break;
+
+        Player_test_con1 testPlayer1 =
+            targetPlayer.GetComponentInChildren<Player_test_con1>();
+
+        Player_test_con2 testPlayer2 =
+            targetPlayer.GetComponentInChildren<Player_test_con2>();
+
+        Player1_con p1 =
+            targetPlayer.GetComponentInChildren<Player1_con>();
+
+        Player2_con p2 =
+            targetPlayer.GetComponentInChildren<Player2_con>();
+
+        bool test1Enabled =
+            testPlayer1 != null &&
+            testPlayer1.enabled;
+
+        bool test2Enabled =
+            testPlayer2 != null &&
+            testPlayer2.enabled;
+
+        // 操作停止
+        if (testPlayer1 != null)
+            testPlayer1.enabled = false;
+
+        if (testPlayer2 != null)
+            testPlayer2.enabled = false;
+
+        if (p1 != null)
+        {
+            time = 1.0f;
+            p1.StartLock(time);
+            p1.knockback = true;
+        }
+
+        if (p2 != null)
+        {
+            time = 0.8f;
+            p2.StartLock(time);
+            p2.knockback = true;
+        }
+
+        // X固定解除
+        RigidbodyConstraints2D originalConstraints =
+            targetRb.constraints;
+
+        targetRb.constraints &=
+            ~RigidbodyConstraints2D.FreezePositionX;
+
+        // 吹っ飛ばし
+        targetRb.linearVelocity = Vector2.zero;
+
+        Vector2 force =
+            new Vector2(
+                dir * horizontalForce,
+                verticalForce
+            );
+
+        targetRb.AddForce(
+            force,
+            ForceMode2D.Impulse
+        );
+
+        Debug.Log(
+            "AddForce : " +
+            force +
+            " target=" +
+            targetPlayer.name
+        );
+
+        yield return new WaitForSeconds(
+            bounceTime
+        );
+
+        // 登録解除
+        hitPlayers.Remove(targetRb);
+        bouncingPlayers.Remove(targetRb);
+
+        if (targetRb != null)
+        {
+            targetRb.constraints =
+                originalConstraints;
+        }
+
+        // テスト操作復帰
+        if (testPlayer1 != null)
+            testPlayer1.enabled =
+                test1Enabled;
+
+        if (testPlayer2 != null)
+            testPlayer2.enabled =
+                test2Enabled;
+
+        // ←ここ重要
+        if (p1 != null)
+        {
+            p1.knockback = false;
+            p1.lockControl = false;
+        }
+
+        if (p2 != null)
+        {
+            p2.knockback = false;
+            p2.lockControl = false;
+        }
+
+        Debug.Log(
+            "跳ね返し終了 : " +
+            targetPlayer.name
+        );
+    }
+    /*IEnumerator BouncePlayer(
         Transform targetPlayer,
         Rigidbody2D targetRb,
         float dir)
@@ -239,7 +358,7 @@ public class PlayerBounce : MonoBehaviour
             targetPlayer.name
         );
     }
-
+    */
     Transform FindPlayerRoot(
         Transform current)
     {

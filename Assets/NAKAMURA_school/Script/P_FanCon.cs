@@ -84,8 +84,9 @@ public class P_FanServer : MonoBehaviour
             {
                 consumeTimer = 0f;
 
-                fanCharge.ConsumeAura();
+                    fanCharge.ConsumeAura();
 
+                 
                 if (!fanCharge.HasAura())
                 {
                     EndAttack();

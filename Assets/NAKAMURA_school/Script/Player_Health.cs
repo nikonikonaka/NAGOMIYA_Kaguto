@@ -10,7 +10,7 @@ public class Player_Health : MonoBehaviour
     public int maxHealth = 100;
 
     // 全Player_Healthで共有
-    private static int currentHealth;
+    private /*static*/ int currentHealth;
 
     [Header("HPバー")]
     public Slider healthBar;

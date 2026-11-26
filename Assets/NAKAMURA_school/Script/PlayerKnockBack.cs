@@ -42,9 +42,9 @@ public class PlayerKnockback : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         if (p1 != null)
-            p1.lockControl = false;
+            p1.StartLock(1.0f);
 
         if (p2 != null)
-            p2.lockControl = false;
+            p2.StartLock(0.5f);
     }
 }

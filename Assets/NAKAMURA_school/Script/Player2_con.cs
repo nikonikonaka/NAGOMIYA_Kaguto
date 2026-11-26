@@ -35,6 +35,8 @@ public class Player2_con : MonoBehaviour, IPlayerController
     //操作ロック
     [HideInInspector]
     public bool lockControl = false;
+    private float lockTimer = 0.5f;
+
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
@@ -43,6 +45,7 @@ public class Player2_con : MonoBehaviour, IPlayerController
     private float moveInput;
     private bool isGrounded;
 
+    public GroundCheck groundCheck;
     Gamepad IPlayerController.myPad
     {
         get { return myPad; }
@@ -82,7 +85,15 @@ public class Player2_con : MonoBehaviour, IPlayerController
 
         if (lockControl)
         {
+            lockTimer -= Time.deltaTime;
             moveInput = 0f;
+
+            if (lockTimer <= 0f)
+            {
+                lockControl = false;
+                lockTimer = 0f;
+            }
+
             return;
         }
 
@@ -131,18 +142,26 @@ public class Player2_con : MonoBehaviour, IPlayerController
         if (!joined || myPad == null)
             return;
 
-        if (lockControl)
-            return;
-
         //ノックバック中
         if (knockback)
         {
             Debug.Log("[2P] KnockBack");
 
+            lockControl = true;
+            lockTimer = 0.5f;
             knockback = false;
 
             return;
         }
+
+        if (lockControl)
+        {
+            Debug.Log("P1 lockControl = TRUE");
+            return;
+        }
+
+
+  
 
         //突進中
         if (isAttacking)
@@ -190,6 +209,7 @@ public class Player2_con : MonoBehaviour, IPlayerController
             {
                 isGrounded = true;
                 airDashUsed = false;
+            //    lockControl = false;
                 return;
             }
         }
@@ -199,7 +219,15 @@ public class Player2_con : MonoBehaviour, IPlayerController
 
     public bool IsGrounded()
     {
-        return isGrounded;
+        return groundCheck != null &&
+               groundCheck.isGround;
+
+    }
+    public void StartLock(float time)
+    {
+        lockControl = true;
+        lockTimer = time;
+        moveInput = 0f;
     }
 }
 /*using UnityEngine;  //2026 10 19  

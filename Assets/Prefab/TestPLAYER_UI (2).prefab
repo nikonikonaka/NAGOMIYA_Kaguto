@@ -526,6 +526,7 @@ GameObject:
   - component: {fileID: 8091690795329792076}
   - component: {fileID: 7324337297019248683}
   - component: {fileID: 7547357987431331762}
+  - component: {fileID: 4343008275852287083}
   m_Layer: 0
   m_Name: TestPLAYER_UI (2)
   m_TagString: Player
@@ -732,7 +733,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8597429736026469174}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da94efa42e1b80145969a28767d5bcd3, type: 3}
   m_Name: 
@@ -943,7 +944,7 @@ MonoBehaviour:
   consentAnim: {fileID: 6448167047354634819}
   consentAnimator: {fileID: 5204786852556423019}
   attackRadius: 2
-  damage: 1500
+  damage: 750
   attackForce: 3
   launchY: 3
   knockbackTime: 0.3
@@ -1001,6 +1002,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultSprite: {fileID: 21300000, guid: c13d1149c9f54a34eb79ed4ad92dd00b, type: 3}
+--- !u!114 &4343008275852287083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8597429736026469174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90adb01b6c51b442a109196ff16c505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5854788338218425315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1317,7 +1330,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6401bbb8b999b9b419f94399b2a9ecc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 7324337297019248683}
+  player1: {fileID: 0}
+  player2: {fileID: 0}
   attackBox: {fileID: 6678283729627033369}
   rightOffset: {x: -4, y: 0}
   leftOffset: {x: 4, y: 0}

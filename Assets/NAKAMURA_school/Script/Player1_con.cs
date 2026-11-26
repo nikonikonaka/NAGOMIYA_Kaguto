@@ -25,6 +25,7 @@ public class Player1_con : MonoBehaviour, IPlayerController
     // レンジ用操作ロック
     [HideInInspector]
     public bool lockControl = false;
+    private float lockTimer = 0.5f;
 
     public Gamepad myPad;
     private Rigidbody2D rb;
@@ -34,6 +35,8 @@ public class Player1_con : MonoBehaviour, IPlayerController
     private float moveInput;
     private bool isGrounded;
     private bool joined = false;
+
+    public GroundCheck groundCheck;
 
     Gamepad IPlayerController.myPad
     {
@@ -77,17 +80,16 @@ public class Player1_con : MonoBehaviour, IPlayerController
         if (!joined || myPad == null)
             return;
 
+
         if (lockControl)
         {
+            lockTimer -= Time.deltaTime;
             moveInput = 0f;
 
-            if (rb != null)
+            if (lockTimer <= 0f)
             {
-                /*    rb.linearVelocity =
-                        new Vector2(
-                            0f,
-                            rb.linearVelocity.y
-                        );*/
+                lockControl = false;
+                lockTimer = 0f;
             }
 
             return;
@@ -161,17 +163,25 @@ public class Player1_con : MonoBehaviour, IPlayerController
         if (!joined || myPad == null)
             return;
 
-        if (lockControl)
-            return;
-
         if (knockback)
         {
             Debug.Log("P1 knockback = TRUE");
 
+            lockControl = true;
+            lockTimer = 0.5f;
             knockback = false; // 強制解除
 
             return;
         }
+
+        if (lockControl)
+        {
+            Debug.Log("P1 lockControl = TRUE");
+            return;
+        }
+
+
+      
 
         /*void FixedUpdate()
         {
@@ -223,6 +233,7 @@ public class Player1_con : MonoBehaviour, IPlayerController
             {
                 isGrounded = true;
                 airDashUsed = false;
+               // lockControl = false;
                 return;
             }
         }
@@ -232,6 +243,14 @@ public class Player1_con : MonoBehaviour, IPlayerController
 
     public bool IsGrounded()
     {
-        return isGrounded;
+        return groundCheck != null &&
+               groundCheck.isGround;
+
+    }
+    public void StartLock(float time)
+    {
+        lockControl = true;
+        lockTimer = time;
+        moveInput = 0f;
     }
 }
