@@ -36,6 +36,8 @@ public class Player1_con : MonoBehaviour, IPlayerController
     private bool isGrounded;
     private bool joined = false;
 
+    public GroundCheck groundCheck;
+
     Gamepad IPlayerController.myPad
     {
         get { return myPad; }
@@ -241,9 +243,10 @@ public class Player1_con : MonoBehaviour, IPlayerController
 
     public bool IsGrounded()
     {
-        return isGrounded;
-    }
+        return groundCheck != null &&
+               groundCheck.isGround;
 
+    }
     public void StartLock(float time)
     {
         lockControl = true;
